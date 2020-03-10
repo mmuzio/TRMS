@@ -1,10 +1,8 @@
 package com.revature.domain;
 
-import java.time.LocalDateTime;
-
 public class Reimbursement {
 	
-	private String reimbusementId;
+	private int reimbursementId;
 	
 	private String username;
 	
@@ -20,8 +18,8 @@ public class Reimbursement {
 	
 	private int price;
 
-	public Reimbursement(String username, String description, LocalDateTime eventtime, int eventtype, int gradeformat,
-			int missedworktime, int price) {
+	public Reimbursement(String username, String description, /*LocalDateTime eventtime, int eventtype, int gradeformat,
+			int missedworktime, */int price) {
 		super();
 		this.username = username;
 		this.description = description;
@@ -46,7 +44,7 @@ public class Reimbursement {
 //		result = prime * result + gradeformat;
 //		result = prime * result + missedworktime;
 		result = prime * result + price;
-		result = prime * result + ((reimbusementId == null) ? 0 : reimbusementId.hashCode());
+		result = prime * result + reimbursementId;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -78,10 +76,7 @@ public class Reimbursement {
 //			return false;
 		if (price != other.price)
 			return false;
-		if (reimbusementId == null) {
-			if (other.reimbusementId != null)
-				return false;
-		} else if (!reimbusementId.equals(other.reimbusementId))
+		if (reimbursementId != other.reimbursementId) 
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -93,19 +88,19 @@ public class Reimbursement {
 
 	@Override
 	public String toString() {
-		return "Reimbursement [reimbusementId=" + reimbusementId + ", username=" + username + ", description="
+		return "Reimbursement [reimbursementId=" + reimbursementId + ", username=" + username + ", description="
 				+ description + ", eventtime=" + 
 //				eventtime + ", eventtype=" + eventtype + ", gradeformat=" + gradeformat
 //				+ ", missedworktime=" + missedworktime + 
 				", price=" + price + "]";
 	}
 
-	public String getReimbusementId() {
-		return reimbusementId;
+	public int getReimbursementId() {
+		return reimbursementId;
 	}
 
-	public void setReimbusementId(String reimbusementId) {
-		this.reimbusementId = reimbusementId;
+	public void setReimbursementId(int reimbursementId) {
+		this.reimbursementId = reimbursementId;
 	}
 
 	public String getUsername() {

@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>My Reimbursements</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -12,13 +12,23 @@
 </head>
 
 <body>
-    <div id="carList" class="table-responsive">
-        <table id="carTable" class="table table-boardered table-dark table-striped">
+
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="revature.png" height="30" class="d-inline-block align-top" alt="">
+          Revature TRMS
+        </a>
+      </nav>
+
+      <br>
+      <br>
+      
+    <div id="myReimbursementList" class="table-responsive">
+        <table id="myReimbursementTable" class="table table-boardered table-dark table-striped">
             <tr id="headerRow">
-                <th id="makeHeader">Make</th>
-                <th id="modelHeader">Model</th>
-                <th id="yearHeader">Year</th>
-                <th id="vinHeader">Vin</th>
+                <th id="usernameHeader">Username</th>
+                <th id="descriptionHeader">Description</th>
+                <th id="priceHeader">Price</th>
             </tr>
         </table>
     </div>
@@ -31,7 +41,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src='/CarDealership/scripts/carlot.js'></script>
+    <script src='../scripts/myreimbursements.js'></script>
 </body>
 
 </html>
