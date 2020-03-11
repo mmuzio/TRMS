@@ -11,6 +11,10 @@ public interface ReimbursementService {
 	public List<Reimbursement> getMyReimbursements(String username);
 	
 	public void addReimbursement(Reimbursement re);
+	
+	public void acceptReimbursement(int reimbursementid);
+	
+	public void rejectReimbursement(int reimbursementid);
 
 	public List<Reimbursement> getReportsReimbursements(String username);
 	

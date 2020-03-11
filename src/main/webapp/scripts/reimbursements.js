@@ -1,3 +1,4 @@
+
 (function getReimbursementList() {
 
     let xhr = new XMLHttpRequest();
@@ -30,7 +31,7 @@ function displayReimbursementList(reimbursementList){
 
         let row = document.createElement("tr");
 
-        row.className = "list-form"
+        row.className = "list-form";
 
         let username = document.createElement("td");
 
@@ -38,17 +39,23 @@ function displayReimbursementList(reimbursementList){
 
         let price = document.createElement("td");
 
+        let accepted = document.createElement("td");
+
         username.innerHTML = reimbursement.username;
 
         description.innerHTML = reimbursement.description;
 
         price.innerHTML = reimbursement.price;
 
+        accepted.innerHTML = reimbursement.approvalstatus;
+
         row.appendChild(username);
 
         row.appendChild(description);
 
         row.appendChild(price);
+
+        row.appendChild(accepted);
 
         document.getElementById("reimbursementTable").appendChild(row);
 

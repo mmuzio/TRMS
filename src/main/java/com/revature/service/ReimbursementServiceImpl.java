@@ -35,4 +35,16 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 		return reDao.retrieveReportsReimbursements(username);
 	}
 
+	@Override
+	public void acceptReimbursement(int reimbursementid) {
+		reDao.acceptReimbursement(reimbursementid);
+		
+	}
+
+	@Override
+	public void rejectReimbursement(int reimbursementid) {
+		reDao.rejectReimbursement(reimbursementid);
+		
+	}
+
 }

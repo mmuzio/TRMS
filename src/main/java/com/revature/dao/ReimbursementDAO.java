@@ -14,6 +14,10 @@ public interface ReimbursementDAO {
 	
 	public void insertReimbursement(Reimbursement re);
 	
+	public void acceptReimbursement(int reimbursementid);
+	
+	public void rejectReimbursement(int reimbursementid);
+	
 	public Reimbursement getReimbursementById(int id);
 
 }

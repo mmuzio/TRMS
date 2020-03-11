@@ -25,6 +25,10 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 	private static final String SELECT_REIMBURSEMENT_BY_ID = "select * from " + REIMBURSEMENT_TABLE + " WHERE reimbursementid = ?";
 	
 	private static final String INSERT_REIMBURSEMENT = "call insert_reimbursement(?,?,?)";
+	
+	private static final String ACCEPT_REIMBURSEMENT = "update " + REIMBURSEMENT_TABLE + " SET approvalstatus = ? WHERE reimbursementid = ?";
+	
+	//private static final String REJECT_REIMBURSEMENT = "update " + REIMBURSEMENT_TABLE + " SET accepted = ? WHERE reimbursemendid = ?";
 
 	@Override
 	public List<Reimbursement> retrieveAllReimbursements() {
@@ -40,9 +44,11 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 			while(rs.next()) {
 				
 				reimbursementList.add(
-						new Reimbursement(rs.getString("username"), 								
-						rs.getString("description"), 						
-						rs.getInt("price")));
+						new Reimbursement(rs.getInt("reimbursementid"),
+								rs.getString("username"), 								
+								rs.getString("description"), 						
+								rs.getInt("price"),
+								rs.getString("approvalstatus")));
 				
 			}
 			
@@ -129,9 +135,11 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 			while(rs.next()) {
 				
 				myReimbursementList.add(
-						new Reimbursement(rs.getString("username"), 								
-						rs.getString("description"), 						
-						rs.getInt("price")));
+						new Reimbursement(rs.getInt("reimbursementid"),
+								rs.getString("username"), 								
+								rs.getString("description"), 						
+								rs.getInt("price"),
+								rs.getString("approvalstatus")));
 				
 			}
 			
@@ -160,9 +168,11 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 			while(rs.next()) {
 				
 				reportsReimbursementList.add(
-						new Reimbursement(rs.getString("username"), 								
-						rs.getString("description"), 						
-						rs.getInt("price")));
+						new Reimbursement(rs.getInt("reimbursementid"),
+								rs.getString("username"), 								
+								rs.getString("description"), 						
+								rs.getInt("price"),
+								rs.getString("approvalstatus")));
 				
 			}
 			
@@ -173,6 +183,48 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 		}
 		
 		return reportsReimbursementList;
+	}
+
+	@Override
+	public void acceptReimbursement(int reimbursementid) {
+		
+		try {
+			
+			PreparedStatement stmt = conn.prepareStatement(ACCEPT_REIMBURSEMENT);
+			
+			stmt.setString(1, "Accepted");
+			
+			stmt.setInt(2,  reimbursementid);
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+	}
+
+	@Override
+	public void rejectReimbursement(int reimbursementid) {
+		
+		try {
+			
+			PreparedStatement stmt = conn.prepareStatement(ACCEPT_REIMBURSEMENT);
+			
+			stmt.setString(1, "Rejected");
+			
+			stmt.setInt(2,  reimbursementid);
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
 	}
 	
 	

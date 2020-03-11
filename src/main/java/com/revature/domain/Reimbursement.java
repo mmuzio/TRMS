@@ -17,8 +17,49 @@ public class Reimbursement {
 //	private int missedworktime;
 	
 	private int price;
+	
+	private String approvalstatus;
+	
+	public Reimbursement(int reimbursementid, String username, String description, /*LocalDateTime eventtime, int eventtype, int gradeformat,
+			int missedworktime, */int price, String approvalstatus) {
+		super();
+		this.reimbursementId = reimbursementid;
+		this.username = username;
+		this.description = description;
+//		this.eventtime = eventtime;
+//		this.eventtype = eventtype;
+//		this.gradeformat = gradeformat;
+//		this.missedworktime = missedworktime;
+		this.price = price;
+		this.approvalstatus = approvalstatus;
+	}
 
 	public Reimbursement(String username, String description, /*LocalDateTime eventtime, int eventtype, int gradeformat,
+			int missedworktime, */int price, String approvalstatus) {
+		super();
+		this.username = username;
+		this.description = description;
+//		this.eventtime = eventtime;
+//		this.eventtype = eventtype;
+//		this.gradeformat = gradeformat;
+//		this.missedworktime = missedworktime;
+		this.price = price;
+		this.approvalstatus = approvalstatus;
+	}
+	
+	public Reimbursement(String username, String description, /*LocalDateTime eventtime, int eventtype, int gradeformat,
+			int missedworktime, */int price) {
+		super();
+		this.username = username;
+		this.description = description;
+//		this.eventtime = eventtime;
+//		this.eventtype = eventtype;
+//		this.gradeformat = gradeformat;
+//		this.missedworktime = missedworktime;
+		this.price = price;
+	}
+	
+	public Reimbursement(String description, /*LocalDateTime eventtime, int eventtype, int gradeformat,
 			int missedworktime, */int price) {
 		super();
 		this.username = username;
@@ -157,6 +198,14 @@ public class Reimbursement {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getApprovalstatus() {
+		return approvalstatus;
+	}
+
+	public void setApprovalstatus(String approvalstatus) {
+		this.approvalstatus = approvalstatus;
 	}
 	
 	

@@ -1,8 +1,8 @@
 class Reimbursement {
 
-    constructor(username, description, price) {
+    constructor(description, price) {
 
-        this.username = username;
+        //this.username = username;
 
         this.description = description;
 
@@ -16,13 +16,13 @@ function addReimbursement() {
 
     event.preventDefault();
     
-    let username = document.getElementById("username").value;
+    //let username = document.getElementById("username").value;
 
     let description = document.getElementById("description").value;
 
     let price = document.getElementById("price").value;
 
-    let reimbursement = new Reimbursement(username, description, price);
+    let reimbursement = new Reimbursement(description, price);
 
     let xhr = new XMLHttpRequest();
 
@@ -41,5 +41,11 @@ function addReimbursement() {
 }
 
 window.onload = function() {
+
     this.document.getElementById("addReimbursement").addEventListener("click", this.addReimbursement, false);
+
+    document.getElementById("addReimbursement").onclick = function () {
+        location.href = "reimbursements.html";
+    };
+
 }
