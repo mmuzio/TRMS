@@ -18,4 +18,8 @@ public interface ReimbursementService {
 
 	public List<Reimbursement> getReportsReimbursements(String username);
 	
+	public boolean isApproved(int reimbursementid);
+	
+	public void awardReimbursement(int reimbursementid);
+	
 }

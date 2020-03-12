@@ -2,7 +2,9 @@ package com.revature.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -88,9 +90,23 @@ public class ReimbursementServlet extends HttpServlet {
 			
 			String reimbursementJson = request.getReader().readLine();
 			
-			System.out.println(reimbursementJson);
+			//System.out.println(reimbursementJson);
 			
 			Reimbursement reimbursement = new GsonBuilder().create().fromJson(reimbursementJson, Reimbursement.class);
+			
+			String eventtimestring = reimbursement.getEventtimestring();
+			
+			//System.out.println(eventtimestring);
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			
+			LocalDate eventdate = LocalDate.parse(eventtimestring, formatter);
+			
+			LocalDateTime eventtime = (LocalDateTime) eventdate.atStartOfDay();
+			
+			//System.out.println(eventtime.toString());
+			
+			reimbursement.setEventtime(eventtime);
 			
 			reimbursement.setUsername(user.getUsername());
 			

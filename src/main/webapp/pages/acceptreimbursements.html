@@ -6,6 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://use.fontawesome.com/09ed35c755.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
@@ -24,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="reimbursements.html">Reimbursements</a>
+              <a class="nav-link" href="reimbursements.html">My Reimbursements</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="addreimbursement.html">Add New Reimbursement</a>
@@ -38,14 +39,74 @@
           </ul>
         </div>
       </nav>
-      <!--
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          <img src="revature.png" height="30" class="d-inline-block align-top" alt="">
-          Revature TRMS
-        </a>
-      </nav>
--->
+
+            <!-- Button trigger modal
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Launch demo modal
+      </button>
+    -->
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-center" id="exampleModalLongTitle">Reimbursement Actions</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row text-center justify-content-center">
+                <h3>Approval Status</h3>
+              </div>
+              <div class="container">
+                <div id="approvalsList" class="table-responsive">
+                    <table id="approvalsTable" class="table table-boardered table-dark table-striped">
+                        <tr id="approvalsHeaderRow" class="text-center">
+                            <th style="width: 33.33%" id="dsHeader">Direct Supervisor</th>
+                            <th style="width: 33.33%" id="dhHeader">Department Head</th>
+                            <th style="width: 33.33%"id="bHeader">Benefits Coordinator</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+              <div class="row text-center justify-content-center">
+                <h3>Request More Information</h3>
+              </div>
+              <div class="row text-center">
+                <div class="box col-md-4 col-sm-6 pt-4 d-flex justify-content-center">
+                  <a id="emailanchor" href="mailto:info@bumblebeast.co">
+                      <h5>Employee</h5>
+                      <i class="fa fa-envelope fa-3x"></i>
+                      <h3 class="d-none d-lg-block d-xl-block">E-mail</h3>
+                      <p class="d-none d-lg-block d-xl-block" id="emailp" ></p>
+                      <br>
+                  </a>
+                </div>
+                <!--
+                <div class="box col-md-4 col-sm-6 pt-4 d-flex justify-content-center">
+                  <a id="emailanchor2" href="mailto:info@bumblebeast.co">
+                      <br>
+                      <i class="fa fa-envelope fa-3x"></i>
+                      <h3 class="d-none d-lg-block d-xl-block">E-mail</h3>
+                      <p class="d-none d-lg-block d-xl-block" id="emailp2" ></p>
+                      <br>
+                  </a>
+                </div>
+              -->
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+              <!--<button type="button" class="btn btn-primary">Request Information From Employee</button>-->
+              <button type="button" class="btn btn-success acceptmod mr-auto btn-lg">Accept</button>
+              <button type="button" class="btn btn-danger rejectmod btn-lg">Reject</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
 
       <section id="cover" class="min-vh-100">
         <div id="cover-caption">
@@ -56,12 +117,22 @@
                     <table id="reimbursementTable" class="table table-boardered table-dark table-striped">
                         <tr id="headerRow">
                             <th id="usernameHeader">Username</th>
+                            <th id="eventtypeHeader">Event Type</th>
                             <th id="descriptionHeader">Description</th>
-                            <th id="priceHeader">Price</th>
-                            <th id="acceptHeader">Accept</th>
-                            <th id="rejectHeader">Reject</th>
+                            <th id="locationHeader">Location</th>
+                            <th id="eventtimeHeader">Event Time</th>
+                            <th id="gradeformatHeader">Grade Format</th>
+                            <th id="justificationHeader">Justification</th>
+                            <th id="missedworkHeader">Missed Work</th>
+                            <th id="priceHeader">Price</th> 
+                            <th id="acceptedHeader">Approval Status</th>
+                            <th id="openHeader">Open</th>
+                            <!--<th id="acceptHeader">Accept/Reject</th>-->
                         </tr>
                     </table>
+                </div>
+                <div style="background-color: white;">
+                  <p>Event Time is colored <span style="color:red;">red</span> if event starts in less than 2 weeks</p>
                 </div>
             </div>
         </div>

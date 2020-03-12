@@ -47,4 +47,15 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 		
 	}
 
+	@Override
+	public boolean isApproved(int reimbursementid) {
+		return reDao.isApproved(reimbursementid);
+	}
+
+	@Override
+	public void awardReimbursement(int reimbursementid) {
+		reDao.awardReimbursement(reimbursementid);
+		
+	}
+
 }

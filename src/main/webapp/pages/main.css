@@ -26,3 +26,11 @@ form:before {
     z-index: -1;
     border-radius: 10px;
 }
+
+button {
+    margin: 10px 10px 10px 10px;
+}
+
+.table td {
+    vertical-align: middle;
+}

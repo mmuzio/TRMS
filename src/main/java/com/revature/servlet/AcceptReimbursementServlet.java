@@ -47,19 +47,21 @@ public class AcceptReimbursementServlet extends HttpServlet {
 			
 			List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
 			
-			if (user.getUsertype() == 2) {
+			//if (user.getUsertype() == 2) {
 				
-				reimbursementList = reService.getReportsReimbursements(user.getUsername());
+			reimbursementList = reService.getReportsReimbursements(user.getUsername());
 				
-			} else if (user.getUsertype() == 3) {
+			//} else if (user.getUsertype() == 3) {
 				
-				reimbursementList = reService.getAllReimbursements();
+				//reimbursementList = reService.getAllReimbursements();
 				
-			} else {
+				//reimbursementList = reService.getReportsReimbursements(user.getUsername());
 				
-				System.out.println("Possible hacking attempt! Unauthorized user tried to accept reimbursements!");
+			//} else {
 				
-			}
+				//System.out.println("Possible hacking attempt! Unauthorized user tried to accept reimbursements!");
+				
+			//}
 			
 			System.out.println("User type is \n" + user.getUsertype());
 			

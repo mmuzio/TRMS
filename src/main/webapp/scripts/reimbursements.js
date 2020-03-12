@@ -33,25 +33,91 @@ function displayReimbursementList(reimbursementList){
 
         row.className = "list-form";
 
-        let username = document.createElement("td");
+        let eventtype = document.createElement("td");
 
         let description = document.createElement("td");
+
+        let location = document.createElement("td");
+
+        let eventtime = document.createElement("td");
+
+        let gradeformat = document.createElement("td");
+
+        let justification = document.createElement("td");
+
+        let missedwork = document.createElement("td");
 
         let price = document.createElement("td");
 
         let accepted = document.createElement("td");
 
-        username.innerHTML = reimbursement.username;
+        eventtype.innerHTML = reimbursement.eventtype;
 
         description.innerHTML = reimbursement.description;
+
+        location.innerHTML = reimbursement.location;
+
+        let submityear = reimbursement.submittime.date.year;
+
+        let submitmonth = reimbursement.submittime.date.month;
+
+        let submitday = reimbursement.submittime.date.day;
+
+        let formattedsubmitdate = formatdate(submityear, submitmonth, submitday);
+
+        let year = reimbursement.eventtime.date.year;
+
+        let month = reimbursement.eventtime.date.month;
+
+        let day = reimbursement.eventtime.date.day;
+
+        let formattedeventdate = formatdate(year, month, day);
+
+        let eventDate = new Date(formattedeventdate);
+
+        let submitDate = new Date(formattedsubmitdate);
+
+        let daysbetween = Math.round((eventDate-submitDate)/(1000*60*60*24));
+
+        console.log(daysbetween);
+
+        if (daysbetween < 14) {
+            
+            eventtime.style.color = 'red';
+
+        } 
+
+        //console.log(JSON.stringify(eventdate));
+
+        //console.log("eventtime date is " + reimbursement.eventtime.date.toString());
+
+        //console.log("eventtime time is " + reimbursement.eventtime.time.toString());
+
+        eventtime.innerHTML = formattedeventdate;
+
+        gradeformat.innerHTML = reimbursement.gradeformat;
+
+        justification.innerHTML = reimbursement.justification;
+
+        missedwork.innerHTML = reimbursement.missedwork;
 
         price.innerHTML = reimbursement.price;
 
         accepted.innerHTML = reimbursement.approvalstatus;
 
-        row.appendChild(username);
+        row.appendChild(eventtype);
 
         row.appendChild(description);
+
+        row.appendChild(location);
+
+        row.appendChild(eventtime);
+
+        row.appendChild(gradeformat);
+
+        row.appendChild(justification);
+
+        row.appendChild(missedwork);
 
         row.appendChild(price);
 
@@ -60,6 +126,25 @@ function displayReimbursementList(reimbursementList){
         document.getElementById("reimbursementTable").appendChild(row);
 
     }
+
+}
+
+function formatdate(year, month, day) {
+
+    month = formatDaysAndMonths(month);
+
+    day = formatDaysAndMonths(day);
+
+    return month + "/" + day + "/" + year;
+
+
+  }
+
+function formatDaysAndMonths(time) {
+
+    if (time < 10) {time = "0" + time};
+
+    return time;
 
 }
 

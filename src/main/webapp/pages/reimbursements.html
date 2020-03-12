@@ -24,7 +24,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="reimbursements.html">Reimbursements<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="reimbursements.html">My Reimbursements<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="addreimbursement.html">Add New Reimbursement</a>
@@ -38,29 +38,42 @@
           </ul>
         </div>
       </nav>
-      <!--
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          <img src="revature.png" height="30" class="d-inline-block align-top" alt="">
-          Revature TRMS
-        </a>
-      </nav>
--->
+
 
       <section id="cover" class="min-vh-100">
         <div id="cover-caption">
             <div class="container">
                 <br>
                 <br>
+                <div id="infoList" class="table-responsive">
+                  <table id="infoTable" class="table table-bordered table-dark table-striped">
+                      <tr id="headerRow">
+                          <th id="availableHeader">Available Funds</th>
+                          <th id="awardedHeader">Awarded Funds</th>
+                          <th id="pendingHeader">Pending Funds</th>
+                          <th id="postPendingHeader">Available Funds After Pending</th>
+                      </tr>
+                  </table>
+                </div>
+                <br>
+                <br>
                 <div id="reimbursementList" class="table-responsive">
-                    <table id="reimbursementTable" class="table table-boardered table-dark table-striped">
+                    <table id="reimbursementTable" class="table table-bordered table-dark table-striped">
                         <tr id="headerRow">
-                            <th id="usernameHeader">Username</th>
+                            <th id="eventtypeHeader">Event Type</th>
                             <th id="descriptionHeader">Description</th>
+                            <th id="locationHeader">Location</th>
+                            <th id="eventtimeHeader">Event Time</th>
+                            <th id="gradeformatHeader">Grade Format</th>
+                            <th id="justificationHeader">Justification</th>
+                            <th id="missedworkHeader">Missed Work</th>
                             <th id="priceHeader">Price</th>
                             <th id="acceptHeader">Approval Status</th>
                         </tr>
                     </table>
+                </div>
+                <div style="background-color: white;">
+                  <p>Event Time is colored red if event starts in less than 2 weeks</p>
                 </div>
             </div>
         </div>

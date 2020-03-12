@@ -41,4 +41,34 @@
     <servlet-name>AcceptReimbursementServlet</servlet-name>
     <url-pattern>/acceptreimbursement</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EmployeeServlet</display-name>
+    <servlet-name>EmployeeServlet</servlet-name>
+    <servlet-class>com.revature.servlet.EmployeeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmployeeServlet</servlet-name>
+    <url-pattern>/employee</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ApprovalsServlet</display-name>
+    <servlet-name>ApprovalsServlet</servlet-name>
+    <servlet-class>com.revature.servlet.ApprovalsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApprovalsServlet</servlet-name>
+    <url-pattern>/approvals</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RejectionServlet</display-name>
+    <servlet-name>RejectionServlet</servlet-name>
+    <servlet-class>com.revature.servlet.RejectionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RejectionServlet</servlet-name>
+    <url-pattern>/rejection</url-pattern>
+  </servlet-mapping>
 </web-app>
