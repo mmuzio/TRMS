@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.revature.dao.ReimbursementDAO;
 import com.revature.dao.ReimbursementDAOPostgres;
+import com.revature.domain.Approval;
 import com.revature.domain.Reimbursement;
 
 public class ReimbursementServiceImpl implements ReimbursementService {
 	
 	private ReimbursementDAO reDao = new ReimbursementDAOPostgres();
+	
+	private ApprovalService appService = new ApprovalServiceImpl();
 
 	@Override
 	public List<Reimbursement> getAllReimbursements() {
@@ -18,6 +21,8 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 	@Override
 	public void addReimbursement(Reimbursement re) {
 		reDao.insertReimbursement(re);
+		System.out.println("addRe id is " + re.getReimbursementId());
+		
 
 	}
 	
@@ -37,7 +42,10 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 
 	@Override
 	public void acceptReimbursement(int reimbursementid) {
-		reDao.acceptReimbursement(reimbursementid);
+		if (isApproved(reimbursementid)) {
+			reDao.acceptReimbursement(reimbursementid);
+		}
+		return;
 		
 	}
 
@@ -49,12 +57,13 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 
 	@Override
 	public boolean isApproved(int reimbursementid) {
-		return reDao.isApproved(reimbursementid);
+		return appService.isApproved(reimbursementid);
 	}
 
 	@Override
 	public void awardReimbursement(int reimbursementid) {
-		reDao.awardReimbursement(reimbursementid);
+		//reDao.awardReimbursement(reimbursementid);
+		return;
 		
 	}
 

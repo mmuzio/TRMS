@@ -53,13 +53,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ApprovalsServlet</display-name>
-    <servlet-name>ApprovalsServlet</servlet-name>
-    <servlet-class>com.revature.servlet.ApprovalsServlet</servlet-class>
+    <display-name>ApprovalServlet</display-name>
+    <servlet-name>ApprovalServlet</servlet-name>
+    <servlet-class>com.revature.servlet.ApprovalServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ApprovalsServlet</servlet-name>
-    <url-pattern>/approvals</url-pattern>
+    <servlet-name>ApprovalServlet</servlet-name>
+    <url-pattern>/approval</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

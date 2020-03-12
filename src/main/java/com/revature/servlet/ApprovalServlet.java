@@ -2,10 +2,6 @@ package com.revature.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,26 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.GsonBuilder;
-import com.revature.domain.Reimbursement;
+import com.revature.domain.Approval;
 import com.revature.domain.User;
-import com.revature.service.ReimbursementService;
-import com.revature.service.ReimbursementServiceImpl;
+import com.revature.service.ApprovalService;
+import com.revature.service.ApprovalServiceImpl;
 
 /**
- * Servlet implementation class ReimbursementServlet
+ * Servlet implementation class ApprovalsServlet
  */
-public class ReimbursementServlet extends HttpServlet {
+public class ApprovalServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private ReimbursementService reService = new ReimbursementServiceImpl();
+	private ApprovalService appService = new ApprovalServiceImpl();
 	
-	//private ApprovalService appService = new ApprovalServiceImpl();
+	//private RejectionService rejService = new RejectionServiceImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReimbursementServlet() {
+    public ApprovalServlet() {
     	
         super();
         
@@ -51,22 +47,24 @@ public class ReimbursementServlet extends HttpServlet {
 		if (sess != null && user != null) {
 			
 			//List<Reimbursement> reimbursementList = new ArrayList<Reimbursement>();
+			
+			int reimbursementid = 1;
 				
-			List<Reimbursement> reimbursementList = reService.getMyReimbursements(user.getUsername());
+			Approval approval = appService.getApprovalById(reimbursementid);
 			
 			System.out.println("User type is \n" + user.getUsertype());
 			
 			//List<Reimbursement> reimbursementList = reService.getAllReimbursements();
 			
-			String reimbursementListJSON = new GsonBuilder().create().toJson(reimbursementList);
+			String approvalJSON = new GsonBuilder().create().toJson(approval);
 			
 			PrintWriter pw = response.getWriter();
 			
-			pw.write(reimbursementListJSON);
+			pw.write(approvalJSON);
 			
 			System.out.println("reimbursementList written to printWriter");
 			
-			System.out.println("reimbursementList is \n" + reimbursementListJSON);
+			System.out.println("reimbursementList is \n" + approvalJSON);
 			
 		} else {
 			
@@ -77,6 +75,7 @@ public class ReimbursementServlet extends HttpServlet {
 			System.out.println("user not logged in with session");
 			
 		}
+		
 	}
 
 	/**
@@ -90,48 +89,25 @@ public class ReimbursementServlet extends HttpServlet {
 		
 		if (sess != null && sess.getAttribute("user") != null) {
 			
-			String reimbursementJson = request.getReader().readLine();
+			String approveReimbursementJson = request.getReader().readLine();
 			
-			//System.out.println(reimbursementJson);
+			System.out.println(approveReimbursementJson);
 			
-			Reimbursement reimbursement = new GsonBuilder().create().fromJson(reimbursementJson, Reimbursement.class);
-			
-			String eventtimestring = reimbursement.getEventtimestring();
-			
-			//System.out.println(eventtimestring);
-			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-			
-			LocalDate eventdate = LocalDate.parse(eventtimestring, formatter);
-			
-			LocalDateTime eventtime = (LocalDateTime) eventdate.atStartOfDay();
-			
-			//System.out.println(eventtime.toString());
-			
-			reimbursement.setEventtime(eventtime);
-			
-			reimbursement.setUsername(user.getUsername());
+			Approval approval = new GsonBuilder().create().fromJson(approveReimbursementJson, Approval.class);
+//			
+//			if (appService.getApprovalById(approval.getReimbursementid()) == null) {
+//				
+//				appService.addNewApproval(approval);
+//				
+//			}
 			
 			try {
-				
-				reService.addReimbursement(reimbursement);
-				
-				//Approval approval = new Approval(reimbursement.getReimbursementId());
-				
-				//System.out.println("Your approval is " + approval.toString());
-				
-				//appService.addNewApproval(approval);
-				
-				//response.getWriter().write("Success");
-				
-				System.out.println("Reimbursement successfully added");
-				
-				System.out.println("Attempting to redirect...");
+					
+				appService.acceptReimbursementBySuperior(approval.getReimbursementid(), user.getUsertype());
+					
+				System.out.println("Reimbursement successfully accepted for id = " + approval.getReimbursementid() + "\nBy usertype " + user.getUsertype());
 				
 				response.sendRedirect("pages/reimbursements.html");
-				
-				return;
-				
 				
 			} catch (Exception e) {
 				

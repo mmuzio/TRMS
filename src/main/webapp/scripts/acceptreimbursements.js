@@ -120,11 +120,11 @@ function acceptReimbursement(reimbursementid) {
 
     event.preventDefault();
     
-    let accept = true;
+    //let accept = true;
 
     let reimbursementidint = parseInt(reimbursementid);
 
-    let acceptObj = {reimbursementid: reimbursementidint, accept: accept};
+    let acceptObj = {reimbursementid: reimbursementidint};
 
     let xhr = new XMLHttpRequest();
 
@@ -138,7 +138,7 @@ function acceptReimbursement(reimbursementid) {
 
     }
 
-    xhr.open("POST", "/trms/acceptreimbursement", true);
+    xhr.open("POST", "/trms/approval", true);
 
     xhr.send(JSON.stringify(acceptObj));
 

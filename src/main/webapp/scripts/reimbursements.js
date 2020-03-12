@@ -33,6 +33,8 @@ function displayReimbursementList(reimbursementList){
 
         row.className = "list-form";
 
+        // create td elements
+
         let eventtype = document.createElement("td");
 
         let description = document.createElement("td");
@@ -51,11 +53,7 @@ function displayReimbursementList(reimbursementList){
 
         let accepted = document.createElement("td");
 
-        eventtype.innerHTML = reimbursement.eventtype;
-
-        description.innerHTML = reimbursement.description;
-
-        location.innerHTML = reimbursement.location;
+        // format dates
 
         let submityear = reimbursement.submittime.date.year;
 
@@ -77,6 +75,8 @@ function displayReimbursementList(reimbursementList){
 
         let submitDate = new Date(formattedsubmitdate);
 
+        // calculate days between event start and request submission
+
         let daysbetween = Math.round((eventDate-submitDate)/(1000*60*60*24));
 
         console.log(daysbetween);
@@ -87,11 +87,13 @@ function displayReimbursementList(reimbursementList){
 
         } 
 
-        //console.log(JSON.stringify(eventdate));
+        // set innerhtml of td elems
 
-        //console.log("eventtime date is " + reimbursement.eventtime.date.toString());
+        eventtype.innerHTML = reimbursement.eventtype;
 
-        //console.log("eventtime time is " + reimbursement.eventtime.time.toString());
+        description.innerHTML = reimbursement.description;
+
+        location.innerHTML = reimbursement.location;
 
         eventtime.innerHTML = formattedeventdate;
 
@@ -104,6 +106,8 @@ function displayReimbursementList(reimbursementList){
         price.innerHTML = reimbursement.price;
 
         accepted.innerHTML = reimbursement.approvalstatus;
+
+        // append td elems to row
 
         row.appendChild(eventtype);
 

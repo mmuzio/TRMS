@@ -4,13 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.domain.Approval;
-import com.revature.domain.Reimbursement;
 import com.revature.util.ConnectionFactory;
 
 public class ApprovalDAOPostgres implements ApprovalDAO {
@@ -21,7 +18,7 @@ private Connection conn = ConnectionFactory.getConnection();
 	
 	//private static final String REJECTION_TABLE = "rejections";
 	
-	private static final String INSERT_NEW_APPROVAL = "insert into " + APPROVAL_TABLE + " VALUES(?, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)";
+	private static final String INSERT_NEW_APPROVAL = "insert into " + APPROVAL_TABLE + " VALUES(?, DEFAULT, DEFAULT, DEFAULT)";
 	
 	//private static final String INSERT_NEW_REJECTION = "insert into " + REJECTION_TABLE + " VALUES(?, ?, ?, ?)";
 	
@@ -31,7 +28,13 @@ private Connection conn = ConnectionFactory.getConnection();
 	
 	//private static final String SELECT_REJECTION_BY_ID = "select * from " + APPROVAL_TABLE + " WHERE reimbursementid = ?";
 	
-	private static final String UPDATE_APPROVAL_BY_SUPERIOR = "update " + APPROVAL_TABLE + " SET ? = ? WHERE reimbursementid = ?";;
+	//private static String approver;
+	
+	private static final String UPDATE_APPROVAL_BY_SUPERVISOR = "update " + APPROVAL_TABLE + " SET supervisoraccepted = ? WHERE reimbursementid = ?";
+	
+	private static final String UPDATE_APPROVAL_BY_HEAD = "update " + APPROVAL_TABLE + " SET headaccepted = ? WHERE reimbursementid = ?";
+	
+	private static final String UPDATE_APPROVAL_BY_BENCO = "update " + APPROVAL_TABLE + " SET bencoaccepted = ? WHERE reimbursementid = ?";
 	
 	//private static final String UPDATE_APPROVAL = "update " + APPROVAL_TABLE + " SET accepted = ? WHERE reimbursementid = ?";
 
@@ -43,6 +46,8 @@ private Connection conn = ConnectionFactory.getConnection();
 		try {
 			
 			PreparedStatement stmt = conn.prepareStatement(INSERT_NEW_APPROVAL);
+			
+			System.out.println("insert postgres reID is " + approval.getReimbursementid());
 			
 			stmt.setInt(1, approval.getReimbursementid());
 			
@@ -95,7 +100,7 @@ private Connection conn = ConnectionFactory.getConnection();
 		
 		List<Approval> myApprovalList = new ArrayList<Approval>();
 		
-		try {
+		try (Connection conn = ConnectionFactory.getConnection()){
 			
 			PreparedStatement stmt = conn.prepareStatement(SELECT_APPROVALS_BY_USERNAME);
 			
@@ -122,14 +127,58 @@ private Connection conn = ConnectionFactory.getConnection();
 
 	@Override
 	public void acceptReimbursementBySuperior(int reimbursementid, int usertype) {
-		// TODO Auto-generated method stub
-		return;
-	}
-
-	@Override
-	public void acceptReimbursement(int reimbursementid) {
-		// TODO Auto-generated method stub
-		return;
+		
+		System.out.println("arbs postg " + reimbursementid);
+		
+		PreparedStatement stmt = null;
+		
+		try (Connection conn = ConnectionFactory.getConnection()){
+			
+			if (usertype == 1) {
+				
+				System.out.println("Something went wrong with accepting reimbursement, usertype error - lowly employees can't accept reimbursements");
+				
+				return;
+				
+			} else if (usertype == 2) {
+				
+				stmt = conn.prepareStatement(UPDATE_APPROVAL_BY_SUPERVISOR);
+				
+				System.out.println("supervisor");
+				
+			} else if (usertype == 3) {
+				
+				stmt = conn.prepareStatement(UPDATE_APPROVAL_BY_HEAD);
+				
+				System.out.println("head");
+				
+			} else if (usertype == 4) {
+				
+				stmt = conn.prepareStatement(UPDATE_APPROVAL_BY_BENCO);
+				
+				System.out.println("benco");
+				
+			} else {
+				
+				System.out.println("Something went wrong with accepting reimbursement, usertype error");
+				
+				return;
+			}
+			
+			System.out.println("arbs: " + reimbursementid);
+			
+			stmt.setBoolean(1,  true);
+			
+			stmt.setInt(2,  reimbursementid);
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
 	}
 
 }

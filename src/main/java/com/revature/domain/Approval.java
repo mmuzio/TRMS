@@ -37,7 +37,7 @@ public class Approval {
 
 	@Override
 	public String toString() {
-		return "Approval [reimbursementid=" + reimbursementid + ", accepted="
+		return "Approval [reimbursementid=" + reimbursementid
 				+ ", supervisorAccepted=" + supervisorAccepted + ", headAccepted=" 
 				+ headAccepted + ", bencoAccepted=" + bencoAccepted + "]";
 	}
