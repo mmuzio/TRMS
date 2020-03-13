@@ -128,7 +128,7 @@ public class ReimbursementServlet extends HttpServlet {
 				
 				System.out.println("Attempting to redirect...");
 				
-				response.sendRedirect("pages/reimbursements.html");
+				//response.sendRedirect("pages/reimbursements.html");
 				
 				return;
 				

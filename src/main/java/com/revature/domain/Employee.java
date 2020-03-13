@@ -9,6 +9,8 @@ public class Employee {
 	private String lastname;
 	
 	private String email;
+	
+	private int funds;
 
 	public Employee() {
 		super();
@@ -20,12 +22,13 @@ public class Employee {
 		this.username = username;
 	}
 
-	public Employee(String username, String firstname, String lastname, String email) {
+	public Employee(String username, String firstname, String lastname, String email, int funds) {
 		super();
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
+		this.setFunds(funds);
 	}
 
 	@Override
@@ -107,6 +110,14 @@ public class Employee {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getFunds() {
+		return funds;
+	}
+
+	public void setFunds(int funds) {
+		this.funds = funds;
 	}
 
 }

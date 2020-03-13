@@ -12,33 +12,21 @@ import com.revature.util.ConnectionFactory;
 
 public class ApprovalDAOPostgres implements ApprovalDAO {
 	
-private Connection conn = ConnectionFactory.getConnection();
+	private Connection conn = ConnectionFactory.getConnection();
 	
 	private static final String APPROVAL_TABLE = "approvals";
 	
-	//private static final String REJECTION_TABLE = "rejections";
-	
 	private static final String INSERT_NEW_APPROVAL = "insert into " + APPROVAL_TABLE + " VALUES(?, DEFAULT, DEFAULT, DEFAULT)";
-	
-	//private static final String INSERT_NEW_REJECTION = "insert into " + REJECTION_TABLE + " VALUES(?, ?, ?, ?)";
 	
 	private static final String SELECT_APPROVAL_BY_ID = "select * from " + APPROVAL_TABLE + " WHERE reimbursementid = ?";
 	
 	private static final String SELECT_APPROVALS_BY_USERNAME = "select * from " + APPROVAL_TABLE + " WHERE username = ?";
-	
-	//private static final String SELECT_REJECTION_BY_ID = "select * from " + APPROVAL_TABLE + " WHERE reimbursementid = ?";
-	
-	//private static String approver;
 	
 	private static final String UPDATE_APPROVAL_BY_SUPERVISOR = "update " + APPROVAL_TABLE + " SET supervisoraccepted = ? WHERE reimbursementid = ?";
 	
 	private static final String UPDATE_APPROVAL_BY_HEAD = "update " + APPROVAL_TABLE + " SET headaccepted = ? WHERE reimbursementid = ?";
 	
 	private static final String UPDATE_APPROVAL_BY_BENCO = "update " + APPROVAL_TABLE + " SET bencoaccepted = ? WHERE reimbursementid = ?";
-	
-	//private static final String UPDATE_APPROVAL = "update " + APPROVAL_TABLE + " SET accepted = ? WHERE reimbursementid = ?";
-
-	//private static final String UPDATE_REJECTION = "update " + REJECTION_TABLE + " SET accepted = ? WHERE reimbursementid = ?";
 
 	@Override
 	public void insertNewApproval(Approval approval) {

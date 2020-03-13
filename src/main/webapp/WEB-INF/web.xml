@@ -71,4 +71,14 @@
     <servlet-name>RejectionServlet</servlet-name>
     <url-pattern>/rejection</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AttachmentServlet</display-name>
+    <servlet-name>AttachmentServlet</servlet-name>
+    <servlet-class>com.revature.servlet.AttachmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AttachmentServlet</servlet-name>
+    <url-pattern>/attachment</url-pattern>
+  </servlet-mapping>
 </web-app>

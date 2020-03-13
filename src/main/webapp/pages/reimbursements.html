@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Reimbursements</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -23,6 +23,9 @@
         
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Account Summary</a>
+            </li>
             <li class="nav-item active">
               <a class="nav-link" href="reimbursements.html">My Reimbursements<span class="sr-only">(current)</span></a>
             </li>
@@ -39,26 +42,123 @@
         </div>
       </nav>
 
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title text-center" id="exampleModalLongTitle">Reimbursement Actions</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <br>
+              <br>
+              <div class="container">
+                <div id="approvalsList" class="table-responsive">
+                    <table id="approvalsTable" class="table table-boardered table-dark table-striped">
+                      <tr class="text-center">
+                        <th colspan="3" style="font-size: 36px;">Approval Status</th>
+                      </tr>
+                        <tr id="approvalsHeaderRow" class="text-center">
+                            <th style="width: 33.33%" id="dsHeader">Direct Supervisor</th>
+                            <th style="width: 33.33%" id="dhHeader">Department Head</th>
+                            <th style="width: 33.33%"id="bHeader">Benefits Coordinator</th>
+                        </tr>
+                        <tr id="approvalStatusRow" class="text-center list-form">
+                          <td id="supervisorid"></td>
+                          <td id="headid"></td>
+                          <td id="bencoid"></td>
+                        </tr>
+                      
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="container">
+              <div id="attachmentsList" class="table-responsive">
+                  <table id="attachmentTable" class="table table-boardered table-dark table-striped">
+                    <tr class="text-center">
+                      <th colspan="3" style="font-size: 36px;">Attachments</th>
+                    </tr>
+                      <tr id="attachmentsHeaderRow" class="text-center">
+                          <th style="width: 33.3%" id="typeHeader">Type</th>
+                          <th style="width: 33.3%" id="linkHeader">Description</th>
+                          <th style="width: 33.3%" id="linkHeader">Link</th>
+
+                      </tr>
+                    
+                  </table>
+              </div>
+            </div>
+            <br>
+              
+              <form id="addReimbursementForm">
+                <div class="form-group row">
+                    <label for="attachmenttype" class="col-sm-4 col-form-label">Attachment Type:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="attachmenttype" id="attachmenttype">
+                            <option selected="selected">Approval Email</option>
+                            <option>Grade</option>
+                            <option>Presentation</option>
+                          </select>
+                    </div>
+
+                  </div>
+                <div class="form-group row">
+                    <label for="descriptiona" class="col-sm-4 col-form-label">Description:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="descriptiona" name="descriptiona" placeholder="enter description" rows="3" maxlength="80"></textarea>
+                    </div>
+                    
+                </div>
+                <div class="form-group row"> 
+                    <label for="attachmentname" class="col-sm-4 col-form-label">Name:</label>
+                    <div class="col-sm-8">
+                        <input style="width:100%;" type="text" id="attachmentname" name="attachmentname" placeholder="attachment name"/>
+                    </div>
+                    
+                </div>
+                <div class="form-group row"> 
+                    <label for="attachmentlink" class="col-sm-4 col-form-label">Link to Attachment</label>
+                    <div class="col-sm-8">
+                        <input style="width:100%;" type="text" id="attachmentlink" name="attachmentlink" placeholder="Paste Shareable Link Here"/>
+                        <small id="linkHelpBlock" class="form-text text-muted">
+                            Please provide a google drive link with public permissions, share the link with your supervisors, or share with your organization.
+                          </small>
+                    </div>
+                    
+                </div>
+                
+            </form>
+
+            </div>
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-success savechanges mr-auto btn-lg">Save</button>
+              <button type="button" class="btn btn-danger cancel btn-lg">Cancel</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <section id="cover" class="min-vh-100">
         <div id="cover-caption">
             <div class="container">
                 <br>
                 <br>
-                <div id="infoList" class="table-responsive">
-                  <table id="infoTable" class="table table-bordered table-dark table-striped">
-                      <tr id="headerRow">
-                          <th id="availableHeader">Available Funds</th>
-                          <th id="awardedHeader">Awarded Funds</th>
-                          <th id="pendingHeader">Pending Funds</th>
-                          <th id="postPendingHeader">Available Funds After Pending</th>
-                      </tr>
-                  </table>
-                </div>
-                <br>
-                <br>
                 <div id="reimbursementList" class="table-responsive">
                     <table id="reimbursementTable" class="table table-bordered table-dark table-striped">
+                        <tr>
+                          <th colspan="10" style="font-size: 36px;">Your Reimbursements</td>
+                        </tr>
+                        <tr>
+                          <th colspan="10">If event starts in less than 2 weeks, request is marked urgent. Event time is colored RED</td>
+                        </tr>
                         <tr id="headerRow">
                             <th id="eventtypeHeader">Event Type</th>
                             <th id="descriptionHeader">Description</th>
@@ -69,11 +169,10 @@
                             <th id="missedworkHeader">Missed Work</th>
                             <th id="priceHeader">Price</th>
                             <th id="acceptHeader">Approval Status</th>
+                            <th id="openHeader">Open</th>
                         </tr>
+                        
                     </table>
-                </div>
-                <div style="background-color: white;">
-                  <p>Event Time is colored red if event starts in less than 2 weeks</p>
                 </div>
             </div>
         </div>

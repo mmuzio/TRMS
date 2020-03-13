@@ -22,6 +22,22 @@ class Reimbursement {
 
 }
 
+class Attachment {
+
+    constructor(attachmenttype, description, attachmentname, attachmentlink) {
+
+        this.attachmenttype = attachmenttype;
+
+        this.description = description;
+
+        this.attachmentname = attachmentname;
+
+        this.attachmentlink = attachmentlink;
+
+    }
+
+}
+
 function calculateProjectedReimbursement() {
 
     let eventtype = document.getElementById("eventtype").value;
@@ -88,9 +104,43 @@ function addReimbursement() {
 
 }
 
+function addAttachment() {
+
+    event.preventDefault();
+
+    let attachmenttype = document.getElementById("attachmenttype").value;
+
+    let description = document.getElementById("descriptiona").value;
+
+    let attachmentname = document.getElementById("attachmentname").value;
+
+    let attachmentlink = document.getElementById("attachmentlink").value;
+
+    let attachment = new Attachment(attachmenttype, description, attachmentname, attachmentlink);
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            console.log("Success");
+
+        }
+
+    }
+
+    xhr.open("POST", "/trms/attachment", true);
+
+    xhr.send(JSON.stringify(attachment));
+
+}
+
 window.onload = function() {
 
     this.document.getElementById("addReimbursement").addEventListener("click", this.addReimbursement, false);
+
+    this.document.getElementById("addAttachment").addEventListener("click", this.addAttachment, false);
 
     document.getElementById("addReimbursement").onclick = function () {
 

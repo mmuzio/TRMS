@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Accept Reimbursements</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <script src="https://use.fontawesome.com/09ed35c755.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -24,6 +24,9 @@
         
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Account Summary</a>
+          </li>
             <li class="nav-item">
               <a class="nav-link" href="reimbursements.html">My Reimbursements</a>
             </li>
@@ -51,26 +54,75 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title text-center" id="exampleModalLongTitle">Reimbursement Actions</h5>
+              <h3 class="modal-title text-center" id="exampleModalLongTitle">Reimbursement Actions</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <div class="row text-center justify-content-center">
-                <h3>Approval Status</h3>
-              </div>
+              <br>
+              <br>
               <div class="container">
                 <div id="approvalsList" class="table-responsive">
                     <table id="approvalsTable" class="table table-boardered table-dark table-striped">
+                      <tr class="text-center">
+                        <th colspan="3" style="font-size: 36px;">Approval Status</th>
+                      </tr>
                         <tr id="approvalsHeaderRow" class="text-center">
                             <th style="width: 33.33%" id="dsHeader">Direct Supervisor</th>
                             <th style="width: 33.33%" id="dhHeader">Department Head</th>
                             <th style="width: 33.33%"id="bHeader">Benefits Coordinator</th>
                         </tr>
+                        <tr id="approvalStatusRow" class="text-center list-form">
+                          <td id="supervisorid"></td>
+                          <td id="headid"></td>
+                          <td id="bencoid"></td>
+                        </tr>
+                      
                     </table>
                 </div>
             </div>
+            <br>
+            <br>
+            <div class="container">
+              <div id="infoList" class="table-responsive">
+                  <table id="infoTable" class="table table-boardered table-dark table-striped">
+                    <tr class="text-center">
+                      <th colspan="3" style="font-size: 36px;">Reimbursement Information</th>
+                    </tr>
+                      <tr id="infoHeaderRow" class="text-center">
+                          <th style="width: 33.33%" id="nameHeader">Employee Name</th>
+                          <th style="width: 33.33%" id="fundsHeader">Available Funds</th>
+                          <th style="width: 33.33%"id="amountHeader">Reimbursement Amount</th>
+                      </tr>
+                      <tr id="infoRow" class="text-center list-form">
+                        <td id="nameid"></td>
+                        <td id="fundsid"></td>
+                        <td id="amountid"></td>
+                      </tr>
+                    
+                  </table>
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="container">
+              <div id="attachmentsList" class="table-responsive">
+                  <table id="attachmentTable" class="table table-boardered table-dark table-striped">
+                    <tr class="text-center">
+                      <th colspan="3" style="font-size: 36px;">Attachments</th>
+                    </tr>
+                      <tr id="attachmentsHeaderRow" class="text-center">
+                          <th style="width: 33.3%" id="typeHeader">Type</th>
+                          <th style="width: 33.3%" id="linkHeader">Description</th>
+                          <th style="width: 33.3%" id="linkHeader">Link</th>
+
+                      </tr>
+                    
+                  </table>
+              </div>
+            </div>
+            <br>
               <div class="row text-center justify-content-center">
                 <h3>Request More Information</h3>
               </div>
@@ -84,6 +136,8 @@
                       <br>
                   </a>
                 </div>
+                
+                  
                 <!--
                 <div class="box col-md-4 col-sm-6 pt-4 d-flex justify-content-center">
                   <a id="emailanchor2" href="mailto:info@bumblebeast.co">
@@ -95,8 +149,7 @@
                   </a>
                 </div>
               -->
-              </div>
-              
+              </div> 
             </div>
             <div class="modal-footer">
               <!--<button type="button" class="btn btn-primary">Request Information From Employee</button>-->
@@ -113,8 +166,16 @@
             <div class="container">
                 <br>
                 <br>
+                <button type="button" id="showhideaccepted" class="btn btn-success mr-auto btn-lg ">Show/Hide Accepted</button>
+                <button type="button" id="showhidepending" class="btn btn-success mr-auto btn-lg ">Show/Hide Pending</button>
                 <div id="reimbursementList" class="table-responsive">
                     <table id="reimbursementTable" class="table table-boardered table-dark table-striped">
+                      <tr>
+                        <th colspan="11" style="font-size: 36px;">Reimbursement Requests</th>
+                      </tr>
+                      <tr>
+                        <th colspan="11">If event starts in less than 2 weeks, request is marked urgent. Event time is colored RED</td>
+                      </tr>
                         <tr id="headerRow">
                             <th id="usernameHeader">Username</th>
                             <th id="eventtypeHeader">Event Type</th>
@@ -130,9 +191,6 @@
                             <!--<th id="acceptHeader">Accept/Reject</th>-->
                         </tr>
                     </table>
-                </div>
-                <div style="background-color: white;">
-                  <p>Event Time is colored <span style="color:red;">red</span> if event starts in less than 2 weeks</p>
                 </div>
             </div>
         </div>

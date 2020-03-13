@@ -52,17 +52,8 @@ public class LoginServlet extends HttpServlet {
 			HttpSession sess = request.getSession(true);
 			
 			sess.setAttribute("user", user);
-			
-			if (user.getUsertype() == 1) {
 				
-				response.sendRedirect("pages/addreimbursement.html");
-				
-			} else {
-				
-				response.sendRedirect("pages/reimbursements.html");
-				
-			}
-			
+			response.sendRedirect("pages/index.html");
 			
 		}
 	}

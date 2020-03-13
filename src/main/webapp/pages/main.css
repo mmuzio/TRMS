@@ -1,5 +1,5 @@
 #cover {
-    background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat;
+    background: #222 url('https://picsum.photos/200/300?grayscale') center center no-repeat;
     background-size: cover;
     height: 100%;
     text-align: center;
@@ -34,3 +34,55 @@ button {
 .table td {
     vertical-align: middle;
 }
+
+#emailanchor {
+    margin-left: 100%;
+    margin-right: -125%;
+}
+
+.acceptmod {
+    margin-left: 29%;
+}
+
+.rejectmod {
+    margin-right: 29%;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }

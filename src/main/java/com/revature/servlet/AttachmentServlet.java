@@ -2,6 +2,8 @@ package com.revature.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,29 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.GsonBuilder;
-import com.revature.domain.Approval;
+import com.revature.domain.Attachment;
 import com.revature.domain.User;
-import com.revature.service.ApprovalService;
-import com.revature.service.ApprovalServiceImpl;
+import com.revature.service.AttachmentService;
+import com.revature.service.AttachmentServiceImpl;
 
 /**
- * Servlet implementation class ApprovalsServlet
+ * Servlet implementation class AttachmentServlet
  */
-public class ApprovalServlet extends HttpServlet {
+public class AttachmentServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private ApprovalService appService = new ApprovalServiceImpl();
-	
-	//private RejectionService rejService = new RejectionServiceImpl();
+	private AttachmentService attService = new AttachmentServiceImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ApprovalServlet() {
-    	
+    public AttachmentServlet() {
         super();
-        
     }
 
 	/**
@@ -44,23 +42,25 @@ public class ApprovalServlet extends HttpServlet {
 		
 		User user = (User) sess.getAttribute("user");
 		
+		List<Attachment> attachmentList = new ArrayList<Attachment>();
+		
 		if (sess != null && user != null) {
 			
 			String reimbursementid = request.getParameter("reimbursementid");
 			
 			int reimbursementId = Integer.parseInt(reimbursementid);
 				
-			Approval approval = appService.getApprovalById(reimbursementId);
+			attachmentList = attService.getAttachmentsById(reimbursementId);
 			
-			String approvalJSON = new GsonBuilder().create().toJson(approval);
+			String attachmentsJSON = new GsonBuilder().create().toJson(attachmentList);
 			
 			PrintWriter pw = response.getWriter();
 			
-			pw.write(approvalJSON);
+			pw.write(attachmentsJSON);
 			
-			System.out.println("approval written to printWriter");
+			System.out.println("attachmentsJSON written to printWriter");
 			
-			System.out.println("approval is \n" + approvalJSON);
+			System.out.println("attachmentsJSON is \n" + attachmentsJSON);
 			
 		} else {
 			
@@ -71,7 +71,6 @@ public class ApprovalServlet extends HttpServlet {
 			System.out.println("user not logged in with session");
 			
 		}
-		
 	}
 
 	/**
@@ -81,29 +80,26 @@ public class ApprovalServlet extends HttpServlet {
 		
 		HttpSession sess = request.getSession(false);
 		
-		User user = (User) sess.getAttribute("user");
-		
 		if (sess != null && sess.getAttribute("user") != null) {
 			
-			String approveReimbursementJson = request.getReader().readLine();
+			String attachmentJson = request.getReader().readLine();
 			
-			System.out.println(approveReimbursementJson);
+			System.out.println("attachment is " + attachmentJson);
 			
-			Approval approval = new GsonBuilder().create().fromJson(approveReimbursementJson, Approval.class);
-//			
-//			if (appService.getApprovalById(approval.getReimbursementid()) == null) {
-//				
-//				appService.addNewApproval(approval);
-//				
-//			}
+			Attachment attachment = new GsonBuilder().create().fromJson(attachmentJson, Attachment.class);
 			
 			try {
-					
-				appService.acceptReimbursementBySuperior(approval.getReimbursementid(), user.getUsertype());
-					
-				System.out.println("Reimbursement successfully accepted for id = " + approval.getReimbursementid() + "\nBy usertype " + user.getUsertype());
+				
+				attService.addAttachment(attachment);
+				
+				System.out.println("Reimbursement successfully added");
+				
+				System.out.println("Attempting to redirect...");
 				
 				response.sendRedirect("pages/reimbursements.html");
+				
+				return;
+				
 				
 			} catch (Exception e) {
 				
