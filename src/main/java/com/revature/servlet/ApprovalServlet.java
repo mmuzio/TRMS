@@ -87,7 +87,7 @@ public class ApprovalServlet extends HttpServlet {
 			
 			String approveReimbursementJson = request.getReader().readLine();
 			
-			System.out.println(approveReimbursementJson);
+			System.out.println("approval post: \n" + approveReimbursementJson);
 			
 			Approval approval = new GsonBuilder().create().fromJson(approveReimbursementJson, Approval.class);
 //			

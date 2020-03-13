@@ -1,7 +1,7 @@
 
 class ReimbursementInfo {
 
-    constructor(reimbursementID, username, eventtype, description, location, eventtime, gradeformat, justification, missedwork, price) {
+    constructor(reimbursementID, username, eventtype, description, location, eventtime, gradeformat, justification, missedwork, price, amount) {
 
         this.reimbursementID = reimbursementID;
 
@@ -14,7 +14,8 @@ class ReimbursementInfo {
         this.gradeformat = gradeformat;
         this.justification = justification;
         this.missedwork = missedwork;
-        this.price = price
+        this.price = price;
+        this.amount = amount;
 
     }
 
@@ -175,6 +176,7 @@ function addToModal(employeeInfo, reimbursementID) {
     let justification = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).justification;
     let missedwork = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).missedwork;
     let price = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).price;
+    let amount = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).amount;
 
     console.log("reimbursement object is \n" + gradeformat);
 
@@ -190,6 +192,7 @@ function addToModal(employeeInfo, reimbursementID) {
     + "Justification: " +  justification + "%0d%0a %0d%0a"
     + "Missed Work: " +  missedwork + "%0d%0a %0d%0a"
     + "Price: " +  price + "%0d%0a %0d%0a"
+    + "Amount: " +  amount + "%0d%0a %0d%0a"
     + "Please type your message below this line %0d%0a %0d%0a"; 
 
     $('#emailanchor').attr("href", href);
@@ -242,13 +245,15 @@ function addAttachmentsToModal(attachmentList) {
 
 }
 
-function acceptReimbursement(reimbursementid) {
+function acceptReimbursement(reimbursementID) {
 
     event.preventDefault();
 
-    let reimbursementidint = parseInt(reimbursementid);
+    let reimbursementid = parseInt(reimbursementID);
 
-    let acceptObj = {reimbursementid: reimbursementidint};
+    console.log(reimbursementid);
+
+    let acceptObj = {reimbursementid: reimbursementid};
 
     let xhr = new XMLHttpRequest();
 
@@ -268,15 +273,17 @@ function acceptReimbursement(reimbursementid) {
 
 };
 
-function rejectReimbursement(reimbursementid) {
+function rejectReimbursement(reimbursementID) {
 
     event.preventDefault();
     
     let accept = false;
 
-    let reimbursementidint = parseInt(reimbursementid);
+    let reimbursementid = parseInt(reimbursementID);
 
-    let acceptObj = {reimbursementid: reimbursementidint, accept: accept};
+    console.log(reimbursementid);;
+
+    let acceptObj = {reimbursementid: reimbursementid, accept: accept};
 
     let xhr = new XMLHttpRequest();
 
@@ -324,6 +331,8 @@ function displayReimbursementList(reimbursementList){
 
         let price = document.createElement("td");
 
+        let amount = document.createElement("td");
+
         let open = document.createElement("td");
 
         let accepted = document.createElement("td");
@@ -354,7 +363,7 @@ function displayReimbursementList(reimbursementList){
 
         let reimbursementInfo = new ReimbursementInfo(reimbursement.reimbursementId, reimbursement.username, reimbursement.eventtype, 
             reimbursement.description, reimbursement.location, formattedeventdate, reimbursement.gradeformat, reimbursement.justification,
-            reimbursement.missedwork, reimbursement.price);
+            reimbursement.missedwork, reimbursement.price, reimbursement.amount);
 
         reimbursementInfoObj.push(reimbursementInfo);
 
@@ -387,6 +396,8 @@ function displayReimbursementList(reimbursementList){
         missedwork.innerHTML = reimbursement.missedwork;
 
         price.innerHTML = reimbursement.price;
+
+        amount.innerHTML = reimbursement.amount;
 
         accepted.innerHTML = reimbursement.approvalstatus;
 
@@ -421,6 +432,8 @@ function displayReimbursementList(reimbursementList){
         row.appendChild(missedwork);
 
         row.appendChild(price);
+
+        row.appendChild(amount);
 
         row.appendChild(accepted);
 
@@ -482,6 +495,8 @@ window.onload = function () {
     $(".acceptmod").on("click", function() {
 
         console.log("accept clicked");
+
+        console.log($(this).attr("name"));
 
         acceptReimbursement($(this).attr("name"));
 

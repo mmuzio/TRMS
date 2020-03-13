@@ -31,6 +31,8 @@ public class Reimbursement {
 	
 	private int price;
 	
+	private double amount;
+	
 	private String approvalstatus;
 	
 	
@@ -39,7 +41,7 @@ public class Reimbursement {
 	public Reimbursement(int reimbursementid, String username, 
 			String eventtype, String description, String location, 
 			LocalDateTime eventtime, LocalDateTime submittime, String gradeformat,
-			String justification, int missedwork, int price, String approvalstatus) {
+			String justification, int missedwork, int price, double amount, String approvalstatus) {
 		
 		super();
 		
@@ -65,6 +67,8 @@ public class Reimbursement {
 		
 		this.price = price;
 		
+		this.amount = amount;
+		
 		this.approvalstatus = approvalstatus;
 		
 	}
@@ -74,7 +78,7 @@ public class Reimbursement {
 	// so they don't need to be set in constructor
 	public Reimbursement(String username, String eventtype, 
 			String description, String location, LocalDateTime eventtime, 
-			String gradeformat, String justification, int missedwork, int price) {
+			String gradeformat, String justification, int missedwork, int price, double amount) {
 		
 		super();
 		
@@ -96,13 +100,14 @@ public class Reimbursement {
 		
 		this.price = price;
 		
+		this.amount = amount;
 	}
 	
 	// Use this constructor when retrieving from form (doPost in reimbursementServlet)
 	// eventtime comes in as String, needs to be converted to localdatetime
 	public Reimbursement(String username, String eventtype, 
 			String description, String location, String eventtimestring, 
-			String gradeformat, String justification, int missedwork, int price) {
+			String gradeformat, String justification, int missedwork, int price, double amount) {
 		
 		super();
 		
@@ -123,6 +128,8 @@ public class Reimbursement {
 		this.missedwork = missedwork;
 		
 		this.price = price;
+		
+		this.amount = amount;
 		
 	}
 
@@ -330,6 +337,14 @@ public class Reimbursement {
 
 	public void setApprovalstatus(String approvalstatus) {
 		this.approvalstatus = approvalstatus;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 	
 	

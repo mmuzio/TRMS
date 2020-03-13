@@ -20,4 +20,8 @@ public interface ReimbursementDAO {
 	
 	public Reimbursement getReimbursementById(int id);
 
+	public int retrievePendingAmount(String username);
+
+	public int retrieveAwardedAmount(String username);
+
 }

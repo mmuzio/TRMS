@@ -1,6 +1,6 @@
 class Reimbursement {
 
-    constructor(eventtype, description, location, eventtimestring, gradeformat, justification, missedwork, price) {
+    constructor(eventtype, description, location, eventtimestring, gradeformat, justification, missedwork, price, amount) {
 
         this.eventtype = eventtype;
 
@@ -18,25 +18,27 @@ class Reimbursement {
 
         this.price = price;
 
-    }
-
-}
-
-class Attachment {
-
-    constructor(attachmenttype, description, attachmentname, attachmentlink) {
-
-        this.attachmenttype = attachmenttype;
-
-        this.description = description;
-
-        this.attachmentname = attachmentname;
-
-        this.attachmentlink = attachmentlink;
+        this.amount = amount;
 
     }
 
 }
+
+// class Attachment {
+
+//     constructor(attachmenttype, description, attachmentname, attachmentlink) {
+
+//         this.attachmenttype = attachmenttype;
+
+//         this.description = description;
+
+//         this.attachmentname = attachmentname;
+
+//         this.attachmentlink = attachmentlink;
+
+//     }
+
+// }
 
 function calculateProjectedReimbursement() {
 
@@ -60,7 +62,16 @@ function calculateProjectedReimbursement() {
 
     document.getElementById("amount").value = amountval.toFixed(2);
 
+    
+
 }
+
+function getProjectedReimbursement() {
+
+    return document.getElementById("amount").value;
+
+}
+
 
 function addReimbursement() {
 
@@ -84,7 +95,9 @@ function addReimbursement() {
 
     let price = document.getElementById("price").value;
 
-    let reimbursement = new Reimbursement(eventtype, description, location, eventtimestring, gradeformat, justification, missedwork, price);
+    let amount = document.getElementById("amount").value;
+
+    let reimbursement = new Reimbursement(eventtype, description, location, eventtimestring, gradeformat, justification, missedwork, price, amount);
 
     let xhr = new XMLHttpRequest();
 
@@ -104,43 +117,43 @@ function addReimbursement() {
 
 }
 
-function addAttachment() {
+// function addAttachment() {
 
-    event.preventDefault();
+//     event.preventDefault();
 
-    let attachmenttype = document.getElementById("attachmenttype").value;
+//     let attachmenttype = document.getElementById("attachmenttype").value;
 
-    let description = document.getElementById("descriptiona").value;
+//     let description = document.getElementById("descriptiona").value;
 
-    let attachmentname = document.getElementById("attachmentname").value;
+//     let attachmentname = document.getElementById("attachmentname").value;
 
-    let attachmentlink = document.getElementById("attachmentlink").value;
+//     let attachmentlink = document.getElementById("attachmentlink").value;
 
-    let attachment = new Attachment(attachmenttype, description, attachmentname, attachmentlink);
+//     let attachment = new Attachment(attachmenttype, description, attachmentname, attachmentlink);
 
-    let xhr = new XMLHttpRequest();
+//     let xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function() {
+//     xhr.onreadystatechange = function() {
 
-        if (xhr.readyState === 4 && xhr.status === 200) {
+//         if (xhr.readyState === 4 && xhr.status === 200) {
 
-            console.log("Success");
+//             console.log("Success");
 
-        }
+//         }
 
-    }
+//     }
 
-    xhr.open("POST", "/trms/attachment", true);
+//     xhr.open("POST", "/trms/attachment", true);
 
-    xhr.send(JSON.stringify(attachment));
+//     xhr.send(JSON.stringify(attachment));
 
-}
+// }
 
 window.onload = function() {
 
     this.document.getElementById("addReimbursement").addEventListener("click", this.addReimbursement, false);
 
-    this.document.getElementById("addAttachment").addEventListener("click", this.addAttachment, false);
+    //this.document.getElementById("addAttachment").addEventListener("click", this.addAttachment, false);
 
     document.getElementById("addReimbursement").onclick = function () {
 

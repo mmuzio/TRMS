@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.revature.dao.ReimbursementDAO;
 import com.revature.dao.ReimbursementDAOPostgres;
-import com.revature.domain.Approval;
 import com.revature.domain.Reimbursement;
 
 public class ReimbursementServiceImpl implements ReimbursementService {
@@ -20,9 +19,10 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 
 	@Override
 	public void addReimbursement(Reimbursement re) {
-		reDao.insertReimbursement(re);
-		System.out.println("addRe id is " + re.getReimbursementId());
 		
+		reDao.insertReimbursement(re);
+		
+		//System.out.println("addRe id is " + re.getReimbursementId());
 
 	}
 	
@@ -42,8 +42,11 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 
 	@Override
 	public void acceptReimbursement(int reimbursementid) {
+		
 		if (isApproved(reimbursementid)) {
+			
 			reDao.acceptReimbursement(reimbursementid);
+			
 		}
 		return;
 		
@@ -65,6 +68,16 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 		//reDao.awardReimbursement(reimbursementid);
 		return;
 		
+	}
+
+	@Override
+	public int getPendingAmount(String username) {
+		return reDao.retrievePendingAmount(username);
+	}
+
+	@Override
+	public int getAwardedAmount(String username) {
+		return reDao.retrieveAwardedAmount(username);
 	}
 
 }

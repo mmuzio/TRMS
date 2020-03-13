@@ -52,7 +52,6 @@
               </button>
             </div>
             <div class="modal-body">
-
               <br>
               <br>
               <div class="container">
@@ -149,15 +148,36 @@
       <section id="cover" class="min-vh-100">
         <div id="cover-caption">
             <div class="container">
+              <br>
+              <br>
+              <button type="button" id="seefunds" class="btn btn-success mr-auto btn-lg">See Funds</button>
+                <div id="infoList" class="table-responsive">
+                  <table id="infoTable" class="table table-bordered table-dark table-striped">
+                    <tr>
+                      <th colspan="4" style="font-size: 36px;">Your Reimbursement Funds</th>
+                    </tr>
+                      <tr id="headerRow">
+                          <th id="availableHeader">Available Funds</th>
+                          <th id="awardedHeader">Awarded Funds</th>
+                          <th id="pendingHeader">Pending Funds</th>
+                      </tr>
+                      <tr>
+                        <td id="availableFunds"></td>
+                        <td id="awardedFunds"></td>
+                        <td id="pendingFunds"></td>
+                      </tr>
+                  </table>
+                </div>
+              </div>
                 <br>
                 <br>
                 <div id="reimbursementList" class="table-responsive">
                     <table id="reimbursementTable" class="table table-bordered table-dark table-striped">
                         <tr>
-                          <th colspan="10" style="font-size: 36px;">Your Reimbursements</td>
+                          <th colspan="11" style="font-size: 36px;">Your Reimbursements</td>
                         </tr>
                         <tr>
-                          <th colspan="10">If event starts in less than 2 weeks, request is marked urgent. Event time is colored RED</td>
+                          <th colspan="11">If event starts in less than 2 weeks, request is marked urgent. Event time is colored RED</td>
                         </tr>
                         <tr id="headerRow">
                             <th id="eventtypeHeader">Event Type</th>
@@ -168,6 +188,7 @@
                             <th id="justificationHeader">Justification</th>
                             <th id="missedworkHeader">Missed Work</th>
                             <th id="priceHeader">Price</th>
+                            <th id="amountHeader">Amount</th>
                             <th id="acceptHeader">Approval Status</th>
                             <th id="openHeader">Open</th>
                         </tr>

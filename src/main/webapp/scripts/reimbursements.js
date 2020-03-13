@@ -1,3 +1,25 @@
+// class ReimbursementInfo {
+
+//     constructor(reimbursementID, username, eventtype, description, location, eventtime, gradeformat, justification, missedwork, price, amount) {
+
+//         this.reimbursementID = reimbursementID;
+
+//         this.username = username;
+
+//         this.eventtype = eventtype;
+//         this.description = description;
+//         this.location = location;
+//         this.eventtime = eventtime;
+//         this.gradeformat = gradeformat;
+//         this.justification = justification;
+//         this.missedwork = missedwork;
+//         this.price = price;
+//         this.amount = amount;
+
+//     }
+
+// }
+
 class Attachment {
 
     constructor(reimbursementid, attachmenttype, description, attachmentname, attachmentlink) {
@@ -17,7 +39,7 @@ class Attachment {
 }
 
 
-(function getReimbursementList() {
+function getReimbursementList() {
 
     let xhr = new XMLHttpRequest();
 
@@ -41,11 +63,17 @@ class Attachment {
 
     xhr.send();
 
-})();
+};
+
+//var username = "";
 
 function displayReimbursementList(reimbursementList){
+
+    let i = 0;
     
     for(let reimbursement of reimbursementList) {
+
+        //username = reimbursement.username;
 
         let row = document.createElement("tr");
 
@@ -69,7 +97,13 @@ function displayReimbursementList(reimbursementList){
 
         let price = document.createElement("td");
 
+        let amount = document.createElement("td");
+
+        amount.setAttribute("name", i);
+
         let accepted = document.createElement("td");
+
+        accepted.setAttribute("name", i);
 
         let open = document.createElement("td");
 
@@ -127,6 +161,8 @@ function displayReimbursementList(reimbursementList){
 
         price.innerHTML = reimbursement.price;
 
+        amount.innerHTML = reimbursement.amount;
+
         accepted.innerHTML = reimbursement.approvalstatus;
 
         openbutton.setAttribute("class", "btn btn-primary open");
@@ -159,6 +195,8 @@ function displayReimbursementList(reimbursementList){
 
         row.appendChild(price);
 
+        row.appendChild(amount);
+
         row.appendChild(accepted);
 
         row.appendChild(open);
@@ -169,11 +207,9 @@ function displayReimbursementList(reimbursementList){
 
             reimbursementID = $(this).attr("name");
 
-            console.log("On click open reID is: " + reimbursementID)
-
             getApprovalInfo(reimbursementID);
 
-            getAttachments(reimbursementID);
+            getAttachments(reimbursementID);    
 
             console.log("open button clicked, reimbursementId is " + reimbursementID);
 
@@ -336,6 +372,10 @@ function addAttachment(reimbursementID) {
 
     let reimbursementid = parseInt(reimbursementID);
 
+    console.log(reimbursementID);
+
+    console.log(reimbursementid);
+
     let attachmenttype = document.getElementById("attachmenttype").value;
 
     let description = document.getElementById("descriptiona").value;
@@ -364,13 +404,74 @@ function addAttachment(reimbursementID) {
 
 }
 
+var pendingAmount = 0;
+
+var acceptedAmount = 0;
+
+function getPendingOrAccepted(isPending) {
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            console.log(xhr.responseText);
+
+            let fundsAmount = JSON.parse(xhr.responseText);
+
+            console.log(fundsAmount);
+
+            if (isPending) {
+
+                pendingAmount = fundsAmount;
+                addToPending(pendingAmount);
+ 
+            } else {
+
+                acceptedAmount = fundsAmount;
+                addToAccepted(acceptedAmount);
+
+            }
+
+        }
+
+    }
+
+    xhr.open("GET", "/trms/funds?isPending=" + isPending, true);
+
+    xhr.send();
+
+};
+
+function addToPending(fundsAmount) {
+
+    document.getElementById("pendingFunds").innerHTML = fundsAmount;
+
+}
+
+function addToAccepted(fundsAmount) {
+
+    document.getElementById("awardedFunds").innerHTML = fundsAmount;
+    setTimeout(addToAvailable(), 3000);
+
+}
+
+function addToAvailable() {
+
+    document.getElementById("availableFunds").innerHTML = 1000 - acceptedAmount - pendingAmount;
+
+}
+
 window.onload = function () {
+
+    getReimbursementList();
 
     $(".savechanges").on("click", function() {
 
         console.log("save clicked");
 
-        let name = $(this).attr("name")
+        let name = $(this).attr("name");
 
         console.log(name);
 
@@ -381,7 +482,28 @@ window.onload = function () {
     $('#exampleModalCenter').on('hidden.bs.modal', function () {
         cleanAttachmentsTable();
       });
+
     
+
+    // $("#seefunds").on("click", function() {
+
+    //     let x = getPendingFunds();
+    //     let y = getAwardedFunds();
+    //     setAvailableFunds(x, y);
+    
+    // });
+
+    getInfoForFundsTable();
+    
+}
+
+function getInfoForFundsTable() {
+
+    getPendingOrAccepted(true);
+
+    getPendingOrAccepted(false);
+
+
 }
 
 function cleanAttachmentsTable() {
@@ -415,3 +537,35 @@ function cleanAttachmentsTable() {
     attachmentTable.appendChild(row2);
 
 }
+
+// function setAvailableFunds(x, y) {
+
+//     //let available = 1000 - getPendingFunds() - getAwardedFunds();
+
+//     let available = 1000 - x - y;
+
+//     document.getElementById("availableFunds").innerHTML = available;
+
+// }
+
+// function getPendingFunds() {
+//     output = 0;
+//     $("#reimbursementTable td:contains('Pending')").prev().each(function () {
+//         output += parseInt(this.innerHTML); // "this" is the current element in the loop
+//     });
+//     console.log("Pending = " + output);
+//     document.getElementById("pendingFunds").innerHTML = output;
+//     return output;
+
+// }
+
+// function getAwardedFunds() {
+//     output = 0;
+//     $("#reimbursementTable td:contains('Accepted')").prev().each(function () {
+//         output += parseInt(this.innerHTML); // "this" is the current element in the loop
+//     });
+//     console.log("Awarded = " + output);
+//     document.getElementById("awardedFunds").innerHTML = output;
+//     return output;
+
+// }

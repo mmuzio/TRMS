@@ -81,4 +81,14 @@
     <servlet-name>AttachmentServlet</servlet-name>
     <url-pattern>/attachment</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FundsServlet</display-name>
+    <servlet-name>FundsServlet</servlet-name>
+    <servlet-class>com.revature.servlet.FundsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FundsServlet</servlet-name>
+    <url-pattern>/funds</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -22,4 +22,8 @@ public interface ReimbursementService {
 	
 	public void awardReimbursement(int reimbursementid);
 	
+	public int getPendingAmount(String username);
+	
+	public int getAwardedAmount(String username);
+	
 }

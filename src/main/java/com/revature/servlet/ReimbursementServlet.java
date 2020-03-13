@@ -92,7 +92,7 @@ public class ReimbursementServlet extends HttpServlet {
 			
 			String reimbursementJson = request.getReader().readLine();
 			
-			//System.out.println(reimbursementJson);
+			System.out.println(reimbursementJson);
 			
 			Reimbursement reimbursement = new GsonBuilder().create().fromJson(reimbursementJson, Reimbursement.class);
 			

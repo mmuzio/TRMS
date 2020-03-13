@@ -35,7 +35,7 @@ public class ApprovalDAOPostgres implements ApprovalDAO {
 			
 			PreparedStatement stmt = conn.prepareStatement(INSERT_NEW_APPROVAL);
 			
-			System.out.println("insert postgres reID is " + approval.getReimbursementid());
+			System.out.println("Inserting new approval");
 			
 			stmt.setInt(1, approval.getReimbursementid());
 			

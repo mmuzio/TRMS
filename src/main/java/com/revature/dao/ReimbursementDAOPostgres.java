@@ -28,7 +28,11 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 	
 	private static final String SELECT_REIMBURSEMENT_BY_ID = "select * from " + REIMBURSEMENT_TABLE + " WHERE reimbursementid = ?";
 	
-	private static final String INSERT_REIMBURSEMENT = "call insert_reimbursement(?,?,?,?,?,?,?,?,?)";
+	private static final String SELECT_PENDING_AMOUNT = "SELECT sum(amount) AS TotalAmount FROM reimbursements r where r.approvalstatus = 'Pending' and r.username = ?";
+	
+	private static final String SELECT_AWARDED_AMOUNT = "SELECT sum(amount) AS TotalAmount FROM reimbursements r where r.approvalstatus = 'Accepted' and r.username = ?";
+	
+	private static final String INSERT_REIMBURSEMENT = "call insert_reimbursement(?,?,?,?,?,?,?,?,?,?)";
 	
 	private static final String ACCEPT_REIMBURSEMENT = "update " + REIMBURSEMENT_TABLE + " SET approvalstatus = ? WHERE reimbursementid = ?";
 	
@@ -63,6 +67,7 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 								rs.getString("justification"),
 								rs.getInt("missedwork"),
 								rs.getInt("price"),
+								rs.getDouble("amount"),
 								rs.getString("approvalstatus")));
 				
 			}
@@ -109,6 +114,8 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 			stmt.setInt(8, re.getMissedwork());
 			
 			stmt.setInt(9, re.getPrice());
+			
+			stmt.setDouble(10, re.getAmount());
 			
 			stmt.executeUpdate();
 			
@@ -185,6 +192,7 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 								rs.getString("justification"),
 								rs.getInt("missedwork"),
 								rs.getInt("price"),
+								rs.getDouble("amount"),
 								rs.getString("approvalstatus")));
 				
 			}
@@ -231,6 +239,7 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 								rs.getString("justification"),
 								rs.getInt("missedwork"),
 								rs.getInt("price"),
+								rs.getDouble("amount"),
 								rs.getString("approvalstatus")));
 				
 			}
@@ -283,6 +292,63 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 			e.printStackTrace();
 			
 		}
+		
+	}
+
+	@Override
+	public int retrievePendingAmount(String username) {
+		
+		int ret = 0;
+		
+		try (Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement preparedStatement = conn.prepareStatement(SELECT_PENDING_AMOUNT);
+
+	        preparedStatement.setString(1, username);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				
+				ret = rs.getInt(1);
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return ret;
+	}
+
+	@Override
+	public int retrieveAwardedAmount(String username) {
+		
+		int ret = 0;
+		
+		try (Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement preparedStatement = conn.prepareStatement(SELECT_AWARDED_AMOUNT);
+
+	        preparedStatement.setString(1, username);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				
+				ret = rs.getInt(1);
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return ret;
 		
 	}
 	
