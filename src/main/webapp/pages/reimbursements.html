@@ -135,10 +135,19 @@
 
             </div>
             <div class="modal-footer">
-
-              <button type="button" class="btn btn-success savechanges mr-auto btn-lg">Save</button>
-              <button type="button" class="btn btn-danger cancel btn-lg">Cancel</button>
-              
+              <div class="row text-center" style="width: 100%;">
+                <div class="col">
+                  <button type="button" class="btn btn-success savechanges mr-auto btn-lg">Save</button>
+                </div>
+                <div class="col">
+                  <button type="button" data-dismiss="modal" class="btn btn-danger cancel btn-lg">Cancel</button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="row text-center" style="width: 100%;">
+                <span id="attachmentspan" style="width: 100%;"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -147,10 +156,8 @@
 
       <section id="cover" class="min-vh-100">
         <div id="cover-caption">
-            <div class="container">
+            <!-- <div class="container">
               <br>
-              <br>
-              <button type="button" id="seefunds" class="btn btn-success mr-auto btn-lg">See Funds</button>
                 <div id="infoList" class="table-responsive">
                   <table id="infoTable" class="table table-bordered table-dark table-striped">
                     <tr>
@@ -168,9 +175,18 @@
                       </tr>
                   </table>
                 </div>
+              </div> -->
+              <div class="row text-center">
+                <div class="col">
+                  <button type="button" id="showhideaccepted" class="btn btn-success mr-auto btn-lg ">Hide Accepted</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="showhidepending" class="btn btn-success mr-auto btn-lg ">Hide Pending</button>
+                </div>
+                <div class="col">
+                  <button type="button" id="showhiderejected" class="btn btn-success mr-auto btn-lg ">Hide Rejected</button>
+                </div>
               </div>
-                <br>
-                <br>
                 <div id="reimbursementList" class="table-responsive">
                     <table id="reimbursementTable" class="table table-bordered table-dark table-striped">
                         <tr>
@@ -208,6 +224,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <script src='../scripts/reimbursements.js'></script>
+    
 </body>
 
 </html>

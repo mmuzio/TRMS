@@ -2,6 +2,8 @@ package com.revature.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.GsonBuilder;
 import com.revature.domain.Employee;
-import com.revature.domain.Reimbursement;
 import com.revature.domain.User;
 import com.revature.service.EmployeeService;
 import com.revature.service.EmployeeServiceImpl;
@@ -42,6 +43,12 @@ public class EmployeeServlet extends HttpServlet {
 		
 		User user = (User) sess.getAttribute("user");
 		
+//		String manager = user.getUsername();
+//		
+//		List<String> usernamesOfEmployeesBetween = new ArrayList<String>();
+//		
+//		List<Employee> employeesBetween = new ArrayList<Employee>();
+		
 		if (sess != null && user != null) {
 				
 			//Employee emp = empService.getEmployeeByUsername(user.getUsername());
@@ -52,9 +59,19 @@ public class EmployeeServlet extends HttpServlet {
 			
 			Employee emp = new GsonBuilder().create().fromJson(employeeJSON, Employee.class);
 			
-			System.out.println("username should be mike: " + emp.getUsername());
+			//String employee = emp.getUsername();
+			
+			// System.out.println("username should be mike: " + emp.getUsername());
 			
 			Employee ret = empService.getEmployeeByUsername(emp.getUsername());
+			
+//			usernamesOfEmployeesBetween = empService.getUsernamesOfEmployeesBetween(employee, manager);
+//			
+//			employeesBetween = empService.getEmployeesBetween(usernamesOfEmployeesBetween);
+//			
+//			employeesBetween.add(0, ret);
+			
+			//String newEmployeeJSON = new GsonBuilder().create().toJson(employeesBetween);
 			
 			String newEmployeeJSON = new GsonBuilder().create().toJson(ret);
 			
@@ -86,6 +103,12 @@ public class EmployeeServlet extends HttpServlet {
 		
 		User user = (User) sess.getAttribute("user");
 		
+		String manager = user.getUsername();
+		
+		List<String> usernamesOfEmployeesBetween = new ArrayList<String>();
+		
+		List<Employee> employeesBetween = new ArrayList<Employee>();
+		
 		if (sess != null && user != null) {
 				
 			//Employee emp = empService.getEmployeeByUsername(user.getUsername());
@@ -100,11 +123,19 @@ public class EmployeeServlet extends HttpServlet {
 			
 			Employee ret = empService.getEmployeeByUsername(employeeJSON);
 			
+			usernamesOfEmployeesBetween = empService.getUsernamesOfEmployeesBetween(employeeJSON, manager);
+			
+			employeesBetween = empService.getEmployeesBetween(usernamesOfEmployeesBetween);
+			
+			employeesBetween.add(0, ret);
+			
+			System.out.println("Employee Between: " + employeesBetween.toString());
+			
 			//Employee ret = empService.getEmployeeByUsername("mike");
 			
 			System.out.println("Employee object: " + ret.toString());
 			
-			String newEmployeeJSON = new GsonBuilder().create().toJson(ret);
+			String newEmployeeJSON = new GsonBuilder().create().toJson(employeesBetween);
 			
 			//System.out.println(newEmployeeJSON);
 			

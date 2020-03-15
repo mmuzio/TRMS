@@ -42,14 +42,9 @@
           </ul>
         </div>
       </nav>
-
-            <!-- Button trigger modal
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-        Launch demo modal
-      </button>
-    -->
-
-      <!-- Modal -->
+      <div data-role="page">
+    
+      </div>
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
@@ -126,36 +121,24 @@
               <div class="row text-center justify-content-center">
                 <h3>Request More Information</h3>
               </div>
-              <div class="row text-center">
-                <div class="box col-md-4 col-sm-6 pt-4 d-flex justify-content-center">
-                  <a id="emailanchor" href="mailto:info@bumblebeast.co">
-                      <h5>Employee</h5>
-                      <i class="fa fa-envelope fa-3x"></i>
-                      <h3 class="d-none d-lg-block d-xl-block">E-mail</h3>
-                      <p class="d-none d-lg-block d-xl-block" id="emailp" ></p>
-                      <br>
-                  </a>
-                </div>
-                
-                  
-                <!--
-                <div class="box col-md-4 col-sm-6 pt-4 d-flex justify-content-center">
-                  <a id="emailanchor2" href="mailto:info@bumblebeast.co">
-                      <br>
-                      <i class="fa fa-envelope fa-3x"></i>
-                      <h3 class="d-none d-lg-block d-xl-block">E-mail</h3>
-                      <p class="d-none d-lg-block d-xl-block" id="emailp2" ></p>
-                      <br>
-                  </a>
-                </div>
-              -->
+              <div class="row text-center" id="addemailhere">
               </div> 
             </div>
+            
             <div class="modal-footer">
-              <!--<button type="button" class="btn btn-primary">Award</button>-->
-              <button type="button" class="btn btn-success acceptmod mr-auto btn-lg">Accept</button>
-              <button type="button" class="btn btn-danger rejectmod btn-lg">Reject</button>
-              
+              <div class="row text-center" style="width: 100%;">
+                <div class="col">
+                  <button type="button" class="btn btn-success acceptmod mr-auto btn-lg">Accept</button>
+                </div>
+                <div class="col">
+                  <button type="button" class="btn btn-danger rejectmod btn-lg">Reject</button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="row text-center" style="width: 100%;">
+                <span id="infospan" style="width: 100%;"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -164,10 +147,18 @@
       <section id="cover" class="min-vh-100">
         <div id="cover-caption">
             <div class="container">
-                <br>
-                <br>
-                <button type="button" id="showhideaccepted" class="btn btn-success mr-auto btn-lg ">Show/Hide Accepted</button>
-                <button type="button" id="showhidepending" class="btn btn-success mr-auto btn-lg ">Show/Hide Pending</button>
+                <div class="row text-center">
+                  <div class="col">
+                    <button type="button" id="showhideaccepted" class="btn btn-success mr-auto btn-lg ">Hide Accepted</button>
+                  </div>
+                  <div class="col">
+                    <button type="button" id="showhidepending" class="btn btn-success mr-auto btn-lg ">Hide Pending</button>
+                  </div>
+                  <div class="col">
+                    <button type="button" id="showhiderejected" class="btn btn-success mr-auto btn-lg ">Hide Rejected</button>
+                  </div>
+                </div>
+                
                 <div id="reimbursementList" class="table-responsive">
                     <table id="reimbursementTable" class="table table-boardered table-dark table-striped">
                       <tr>

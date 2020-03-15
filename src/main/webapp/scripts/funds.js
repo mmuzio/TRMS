@@ -13,11 +13,11 @@ function getInfoForFundsTable() {
 
 }
 
-var pendingAmount = 0;
-
-var acceptedAmount = 0;
-
 function getPendingOrAccepted(isPending) {
+
+    let pendingAmount = 0;
+
+    let acceptedAmount = 0;
 
     let xhr = new XMLHttpRequest();
 

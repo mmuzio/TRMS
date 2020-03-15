@@ -161,47 +161,106 @@ function getEmployeeInfo(username, reimbursementID) {
 
 function addToModal(employeeInfo, reimbursementID) {
 
-    let email = employeeInfo.email;
+    let i = 1;
 
-    console.log("addToModal reID is " + reimbursementID);
+    let employee1 = employeeInfo[0];
 
-    let reimbursement = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID);
-    let username = reimbursement.username; //reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).username;
+    $("#addemailhere").empty();
 
-    let eventtype = reimbursement.eventtype;//reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).eventtype;
-    let description = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).description;
-    let location = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).location;
-    let eventtime = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).eventtime;
-    let gradeformat = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).gradeformat;
-    let justification = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).justification;
-    let missedwork = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).missedwork;
-    let price = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).price;
-    let amount = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).amount;
+    console.log("emails should empty");
 
-    console.log("reimbursement object is \n" + gradeformat);
+    for(let employee of employeeInfo) {
 
-    let href = "mailto:" + email + "?subject=" + employeeInfo.firstname + " " + employeeInfo.lastname
-    + "'s Reimbursement Request" + "&body=Hi " + employeeInfo.firstname + " " + employeeInfo.lastname + ",%0d%0a %0d%0a" + 
-    "You recently submitted a reimbursement request with the following information: %0d%0a %0d%0a"
-    + "Username: " +  username + "%0d%0a %0d%0a"
-    + "Event Type: " +  eventtype + "%0d%0a %0d%0a"
-    + "Description: " +  description + "%0d%0a %0d%0a"
-    + "Location: " +  location + "%0d%0a %0d%0a"
-    + "Event Time: " +  eventtime + "%0d%0a %0d%0a"
-    + "Grade Format: " +  gradeformat + "%0d%0a %0d%0a"
-    + "Justification: " +  justification + "%0d%0a %0d%0a"
-    + "Missed Work: " +  missedwork + "%0d%0a %0d%0a"
-    + "Price: " +  price + "%0d%0a %0d%0a"
-    + "Amount: " +  amount + "%0d%0a %0d%0a"
-    + "Please type your message below this line %0d%0a %0d%0a"; 
+        let email = employee.email;
 
-    $('#emailanchor').attr("href", href);
+        console.log("addToModal reID is " + reimbursementID);
 
-    $('#emailp').html(email);
+        let reimbursement = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID);
+        let username = reimbursement.username; //reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).username;
+
+        let eventtype = reimbursement.eventtype;//reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).eventtype;
+        let description = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).description;
+        let location = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).location;
+        let eventtime = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).eventtime;
+        let gradeformat = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).gradeformat;
+        let justification = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).justification;
+        let missedwork = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).missedwork;
+        let price = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).price;
+        let amount = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).amount;
+
+        console.log("reimbursement object is \n" + gradeformat);
+
+        let greeting = "";
+
+        if (i == 1) {
+
+            greeting = "You recently submitted a reimbursement request with the following information: %0d%0a %0d%0a";
+
+        } else {
+
+            greeting = "I would like some more info about the following reimbursement request: %0d%0a %0d%0a";
+
+        }
+
+        let href = "mailto:" + email + "?subject=" + employee1.firstname + " " + employee1.lastname
+        + "'s Reimbursement Request" + "&body=Hi " + employee.firstname + " " + employee.lastname + ",%0d%0a %0d%0a" 
+        + greeting
+        + "Username: " +  username + "%0d%0a %0d%0a"
+        + "Event Type: " +  eventtype + "%0d%0a %0d%0a"
+        + "Description: " +  description + "%0d%0a %0d%0a"
+        + "Location: " +  location + "%0d%0a %0d%0a"
+        + "Event Time: " +  eventtime + "%0d%0a %0d%0a"
+        + "Grade Format: " +  gradeformat + "%0d%0a %0d%0a"
+        + "Justification: " +  justification + "%0d%0a %0d%0a"
+        + "Missed Work: " +  missedwork + "%0d%0a %0d%0a"
+        + "Price: " +  price + "%0d%0a %0d%0a"
+        + "Amount: " +  amount + "%0d%0a %0d%0a"
+        + "Please type your message below this line %0d%0a %0d%0a"; 
+
+        createEmailp(i, href, email);
+
+        i += 1;
+
+    }
+
+}
+
+function createEmailp(i, href, email) {
+
+    let employeeType = 'Employee';
+
+    if (i == 1) {
+
+        employeeType = 'Employee';
+
+    } else if (i == 2) {
+
+        employeeType = 'Supervisor';
+
+    } else {
+
+        employeeType = 'Dep Head';
+
+    }
+
+    let emaildiv = document.createElement("div");
+    emaildiv.setAttribute("id", "emaildiv" + i);
+    emaildiv.setAttribute("class", "col");
+    emaildiv.innerHTML = `<a id="emailanchor${i}" href="${href}">
+    <h5>${employeeType}</h5>
+    <i class="fa fa-envelope fa-3x"></i>
+    <h3 class="d-none d-lg-block d-xl-block">E-mail</h3>
+    <p class="d-none d-lg-block d-xl-block" id="emailp${i}">${email}</p>
+    <br>
+    </a>`;
+
+    document.getElementById("addemailhere").appendChild(emaildiv);
 
 }
 
 function addAttachmentsToModal(attachmentList) {
+
+    cleanAttachmentsTable();
 
     for(let attachment of attachmentList) {
 
@@ -263,6 +322,8 @@ function acceptReimbursement(reimbursementID) {
 
             console.log("Success");
 
+            document.getElementById("infospan").innerHTML = "Reimbursement Accepted";
+
         }
 
     }
@@ -292,6 +353,8 @@ function rejectReimbursement(reimbursementID) {
         if (xhr.readyState === 4 && xhr.status === 200) {
 
             console.log("Success");
+
+            document.getElementById("infospan").innerHTML = "Reimbursement Rejected";
 
         }
 
@@ -479,7 +542,6 @@ function formatdate(year, month, day) {
 
     return month + "/" + day + "/" + year;
 
-
   }
 
 function formatDaysAndMonths(time) {
@@ -510,23 +572,53 @@ window.onload = function () {
 
     })
 
-    $('#exampleModalCenter').on('hidden.bs.modal', function () {
-        cleanAttachmentsTable();
-      })
-
-
-      $('#showhideaccepted').click(function(){
+    var acceptedclicked = 0;
+    // show/hide button for accepted reimbursements
+    $('#showhideaccepted').click(function(){
         $('td:contains("Accepted")').parent().toggle();
+        if (acceptedclicked == 0){
+            $('#showhideaccepted').html("Show Accepted");
+            acceptedclicked = 1;
+         } else{
+            $('#showhideaccepted').html("Hide Accepted");
+            acceptedclicked = 0;
+         }
     });
+
+    var pendingclicked = 0; 
+    // show/hide button for pending reimbursements
     $('#showhidepending').click(function(){
         $('td:contains("Pending")').parent().toggle();
+        if (pendingclicked == 0){
+            $('#showhidepending').html("Show Pending");
+            pendingclicked = 1;
+         } else{
+            $('#showhidepending').html("Hide Pending");
+            pendingclicked = 0;
+         }
+    });
+
+    var rejectedclicked = 0;
+    // show/hide button for rejected reimbursements
+    $('#showhiderejected').click(function(){
+        $('td:contains("Rejected")').parent().toggle();
+        if (acceptedclicked == 0){
+            $('#showhiderejected').html("Show Rejected");
+            acceptedclicked = 1;
+         } else{
+            $('#showhiderejected').html("Hide Rejected");
+            acceptedclicked = 0;
+         }
     });
     
 }
 
 function cleanAttachmentsTable() {
+
+    //empty the table
     $("#attachmentTable").empty();
 
+    //create table title  
     let row1 = document.createElement("tr");
     row1.setAttribute("class", "text-center");
     let header1 = document.createElement("th");
@@ -535,6 +627,7 @@ function cleanAttachmentsTable() {
     header1.innerHTML = "Attachments";
     row1.appendChild(header1);
 
+    //create table headers
     let row2 = document.createElement("tr");
     row2.setAttribute("class", "text-center");
     let header2 = document.createElement("th");
@@ -550,6 +643,7 @@ function cleanAttachmentsTable() {
     row2.appendChild(header3);
     row2.appendChild(header4);
 
+    //repopulate table with title and headers
     let attachmentTable = document.getElementById("attachmentTable");
     attachmentTable.appendChild(row1);
     attachmentTable.appendChild(row2);

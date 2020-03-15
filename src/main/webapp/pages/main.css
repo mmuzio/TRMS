@@ -40,14 +40,6 @@ button {
     margin-right: -125%;
 }
 
-.acceptmod {
-    margin-left: 29%;
-}
-
-.rejectmod {
-    margin-right: 29%;
-}
-
 .tooltip {
     position: relative;
     display: inline-block;
