@@ -51,6 +51,12 @@ public class FundsServlet extends HttpServlet {
 			
 			String isPendingString = request.getParameter("isPending");
 			
+			if (request.getParameter("username") != null) {
+				
+				username = request.getParameter("username");
+				
+			}
+			
 			System.out.println(username);
 			
 			System.out.println(isPendingString);

@@ -47,6 +47,12 @@ function displayReimbursementList(reimbursementList){
 
         let row = document.createElement("tr");
 
+        row.setAttribute("data-toggle", "modal");
+
+        row.setAttribute("data-target", "#exampleModalCenter");
+
+        row.setAttribute("name", reimbursement.reimbursementId);
+
         row.className = "list-form";
 
         // create td elements
@@ -74,10 +80,6 @@ function displayReimbursementList(reimbursementList){
         let accepted = document.createElement("td");
 
         accepted.setAttribute("name", i);
-
-        let open = document.createElement("td");
-
-        let openbutton = document.createElement("button");
 
         // format dates
 
@@ -109,7 +111,7 @@ function displayReimbursementList(reimbursementList){
 
         if (daysbetween < 14) {
             
-            eventtime.style.color = 'red';
+            row.style.border = '3px solid red';
 
         } 
 
@@ -135,18 +137,6 @@ function displayReimbursementList(reimbursementList){
 
         accepted.innerHTML = reimbursement.approvalstatus;
 
-        openbutton.setAttribute("class", "btn btn-primary open");
-
-        openbutton.setAttribute("data-toggle", "modal");
-
-        openbutton.setAttribute("data-target", "#exampleModalCenter");
-
-        openbutton.setAttribute("name", reimbursement.reimbursementId);
-
-        openbutton.innerHTML = "OPEN";
-
-        open.appendChild(openbutton);
-
         // append td elems to row
 
         row.appendChild(eventtype);
@@ -169,11 +159,9 @@ function displayReimbursementList(reimbursementList){
 
         row.appendChild(accepted);
 
-        row.appendChild(open);
-
         document.getElementById("reimbursementTable").appendChild(row);
 
-        $(".open").on("click", function() {
+        $("tr").on("click", function() {
 
             reimbursementID = $(this).attr("name");
     
@@ -187,6 +175,18 @@ function displayReimbursementList(reimbursementList){
 
     }
 
+    let row = document.createElement("tr");
+
+    let td = document.createElement("td");
+
+    td.setAttribute("colspan", "10");
+
+    td.innerHTML = "Urgent requests are bordered in red";
+
+    row.appendChild(td);
+
+    document.getElementById("reimbursementTable").appendChild(row);
+    
 }
 
 function formatdate(year, month, day) {
@@ -237,6 +237,10 @@ function getAttachments(reimbursementID) {
 function addAttachmentsToModal(attachmentList) {
 
     cleanAttachmentsTable();
+
+    $("#forthumb").empty();
+
+    $("#attachmentspan").empty();
 
     for(let attachment of attachmentList) {
 
@@ -303,6 +307,18 @@ function addAttachment(reimbursementID) {
         if (xhr.readyState === 4 && xhr.status === 200) {
 
             console.log("Success");
+
+            //let attachmentadded = document.getElementById("attachmentadded");
+
+            //let thumbsup = document.createElement("i");
+
+            $("#forthumb").html('<div class="col"><i class="fa fa-thumbs-up fa-3x"></i></div>')
+
+            //$('<div class="col"><i class="fa fa-thumbs-up fa-3x"></i></div>').insertAfter("#savediv");
+
+            // thumbsup.setAttribute("class", "fa fa-thumbs-up fa-3x");
+            
+            // attachmentadded.appendChild(thumbsup);
 
             document.getElementById("attachmentspan").innerHTML = "Attachment Added";
 

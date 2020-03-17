@@ -159,11 +159,112 @@ function getEmployeeInfo(username, reimbursementID) {
 
 };
 
+function getInfoForFundsTable() {
+
+    getPendingOrAccepted(true);
+
+    getPendingOrAccepted(false);
+
+
+}
+
+var fundsObj = {pendingAmount: 0, acceptedAmount: 0};
+
+function getPendingOrAccepted(username, isPending) {
+
+    // let pendingAmount = 0;
+
+    // let acceptedAmount = 0;
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            console.log(xhr.responseText);
+
+            let fundsAmount = JSON.parse(xhr.responseText);
+
+            console.log(fundsAmount);
+
+            if (isPending) {
+
+                pendingAmount = parseInt(fundsAmount);
+
+                fundsObj.pendingAmount = pendingAmount;
+ 
+            } else {
+
+                acceptedAmount = parseInt(fundsAmount);
+
+                fundsObj.acceptedAmount = acceptedAmount;
+
+            }
+
+        }
+
+    }
+
+    xhr.open("GET", "/trms/funds?username=" + username + "&isPending=" + isPending, true);
+
+    xhr.send();
+
+};
+
+function getAvailableFunds(username) {
+
+    getPendingOrAccepted(username, true);
+
+    getPendingOrAccepted(username, false);
+
+    return 1000 - fundsObj.pendingAmount - fundsObj.acceptedAmount;
+
+}
+
+function addWarningMessage() {
+
+    let warning = document.createElement("tr");
+
+    let warningtd = document.createElement("td");
+
+    warning.setAttribute("class", "text-center");
+
+    warningtd.setAttribute("colspan", "3");
+
+    warningtd.innerHTML = "Reimbursement amount exceeds available funds!";
+
+    warning.style.border = '3px solid red';
+
+    warning.appendChild(warningtd);
+
+    document.getElementById("infoTable").appendChild(warning);
+
+}
+
 function addToModal(employeeInfo, reimbursementID) {
 
     let i = 1;
 
     let employee1 = employeeInfo[0];
+
+    let name = employee1.firstname + " " + employee1.lastname;
+
+    let amount = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).amount;
+
+    let availableamount = getAvailableFunds(employee1.username);
+
+    document.getElementById("nameid").innerHTML = name;
+
+    document.getElementById("fundsid").innerHTML = availableamount;
+
+    document.getElementById("amountid").innerHTML = amount;
+
+    if (amount > availableamount) {
+
+        addWarningMessage();
+
+    }
 
     $("#addemailhere").empty();
 
@@ -322,6 +423,9 @@ function acceptReimbursement(reimbursementID) {
 
             console.log("Success");
 
+            $("#forthumb").html('<div class="col"><i class="fa fa-thumbs-up fa-3x"></i></div>')
+
+
             document.getElementById("infospan").innerHTML = "Reimbursement Accepted";
 
         }
@@ -354,6 +458,8 @@ function rejectReimbursement(reimbursementID) {
 
             console.log("Success");
 
+            $("#forthumb").html('<div class="col"><i class="fa fa-thumbs-down fa-3x"></i></div>')
+
             document.getElementById("infospan").innerHTML = "Reimbursement Rejected";
 
         }
@@ -373,6 +479,12 @@ function displayReimbursementList(reimbursementList){
     for(let reimbursement of reimbursementList) {
 
         let row = document.createElement("tr");
+
+        row.setAttribute("data-toggle", "modal");
+
+        row.setAttribute("data-target", "#exampleModalCenter");
+
+        row.setAttribute("name", reimbursement.reimbursementId);
 
         row.className = "list-form";
 
@@ -396,11 +508,7 @@ function displayReimbursementList(reimbursementList){
 
         let amount = document.createElement("td");
 
-        let open = document.createElement("td");
-
         let accepted = document.createElement("td");
-
-        let openbutton = document.createElement("button");
 
         // format dates
 
@@ -434,11 +542,9 @@ function displayReimbursementList(reimbursementList){
 
         let daysbetween = Math.round((eventDate-submitDate)/(1000*60*60*24));
 
-        console.log(daysbetween);
-
         if (daysbetween < 14) {
             
-            eventtime.style.color = 'red';
+            row.style.border = '3px solid red';
 
         } 
 
@@ -464,20 +570,6 @@ function displayReimbursementList(reimbursementList){
 
         accepted.innerHTML = reimbursement.approvalstatus;
 
-        openbutton.setAttribute("class", "btn btn-primary open");
-
-        openbutton.setAttribute("data-toggle", "modal");
-
-        openbutton.setAttribute("data-target", "#exampleModalCenter");
-
-        openbutton.setAttribute("name", reimbursement.reimbursementId);
-
-        openbutton.innerHTML = "OPEN";
-
-        console.log(reimbursement.reimbursementId);
-
-        open.appendChild(openbutton);
-
         row.appendChild(username);
 
         row.appendChild(eventtype);
@@ -500,17 +592,13 @@ function displayReimbursementList(reimbursementList){
 
         row.appendChild(accepted);
 
-        row.appendChild(open);
-
         document.getElementById("reimbursementTable").appendChild(row);
 
-        $(".open").on("click", function() {
+        $("tr").on("click", function() {
 
             reimbursementID = $(this).attr("name");
 
             let username = reimbursementInfoObj.find(re => re.reimbursementID == reimbursementID).username;
-
-            console.log("username is " + username)
 
             getEmployeeInfo(username, reimbursementID);
 
@@ -518,19 +606,25 @@ function displayReimbursementList(reimbursementList){
 
             getAttachments(reimbursementID);
 
-            console.log("open button clicked, reimbursementId is " + reimbursementID);
-
             $('.acceptmod').attr("name", reimbursementID);
 
-            console.log($('.acceptmod').attr("name"));
-
             $('.rejectmod').attr("name", reimbursementID);
-
-            console.log($('.rejectmod').attr("name"));
             
-        })
+        });
 
     }
+
+    let row = document.createElement("tr");
+
+    let td = document.createElement("td");
+
+    td.setAttribute("colspan", "11");
+
+    td.innerHTML = "Urgent requests are bordered in red";
+
+    row.appendChild(td);
+
+    document.getElementById("reimbursementTable").appendChild(row);
 
 }
 
@@ -617,6 +711,10 @@ function cleanAttachmentsTable() {
 
     //empty the table
     $("#attachmentTable").empty();
+
+    $("#forthumb").empty();
+
+    $("#infospan").empty();
 
     //create table title  
     let row1 = document.createElement("tr");

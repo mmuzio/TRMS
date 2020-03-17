@@ -2,8 +2,8 @@
     background: #222 url('https://picsum.photos/200/300?grayscale') center center no-repeat;
     background-size: cover;
     height: 100%;
-    text-align: center;
     display: flex;
+    text-align: center;
     align-items: center;
     position: relative;
 }
@@ -34,6 +34,10 @@ button {
 .table td {
     vertical-align: middle;
 }
+
+.table tr:hover {
+  background-color: rgba(255,255,255,.075);
+} 
 
 #emailanchor {
     margin-left: 100%;
