@@ -246,6 +246,22 @@ function addToModal(employeeInfo, reimbursementID) {
 
     let i = 1;
 
+    let infoTable = document.getElementById("infoTable");
+
+    infoTable.innerHTML = `<tr class="text-center">
+    <th colspan="3" style="font-size: 36px;">Employee Information</th>
+  </tr>
+    <tr id="infoHeaderRow" class="text-center">
+        <th style="width: 33.33%" id="nameHeader">Employee Name</th>
+        <th style="width: 33.33%" id="fundsHeader">Available Funds</th>
+        <th style="width: 33.33%"id="amountHeader">Reimbursement Amount</th>
+    </tr>
+    <tr id="infoRow" class="text-center list-form">
+      <td id="nameid"></td>
+      <td id="fundsid"></td>
+      <td id="amountid"></td>
+    </tr>`;
+
     let employee1 = employeeInfo[0];
 
     let name = employee1.firstname + " " + employee1.lastname;
@@ -711,6 +727,8 @@ function cleanAttachmentsTable() {
 
     //empty the table
     $("#attachmentTable").empty();
+
+    $("infoTable").empty();
 
     $("#forthumb").empty();
 

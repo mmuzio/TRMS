@@ -43,45 +43,19 @@ public class EmployeeServlet extends HttpServlet {
 		
 		User user = (User) sess.getAttribute("user");
 		
-//		String manager = user.getUsername();
-//		
-//		List<String> usernamesOfEmployeesBetween = new ArrayList<String>();
-//		
-//		List<Employee> employeesBetween = new ArrayList<Employee>();
-		
 		if (sess != null && user != null) {
-				
-			//Employee emp = empService.getEmployeeByUsername(user.getUsername());
 			
 			String employeeJSON = request.getReader().readLine();
 			
-			System.out.println("empJSON is " + employeeJSON);
-			
 			Employee emp = new GsonBuilder().create().fromJson(employeeJSON, Employee.class);
 			
-			//String employee = emp.getUsername();
-			
-			// System.out.println("username should be mike: " + emp.getUsername());
-			
 			Employee ret = empService.getEmployeeByUsername(emp.getUsername());
-			
-//			usernamesOfEmployeesBetween = empService.getUsernamesOfEmployeesBetween(employee, manager);
-//			
-//			employeesBetween = empService.getEmployeesBetween(usernamesOfEmployeesBetween);
-//			
-//			employeesBetween.add(0, ret);
-			
-			//String newEmployeeJSON = new GsonBuilder().create().toJson(employeesBetween);
 			
 			String newEmployeeJSON = new GsonBuilder().create().toJson(ret);
 			
 			PrintWriter pw = response.getWriter();
 			
 			pw.write(newEmployeeJSON);
-			
-			System.out.println("Employee written to printWriter");
-			
-			System.out.println("Employee is \n" + employeeJSON);
 			
 		} else {
 			
@@ -99,6 +73,7 @@ public class EmployeeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession sess = request.getSession(false);
 		
 		User user = (User) sess.getAttribute("user");
@@ -110,16 +85,8 @@ public class EmployeeServlet extends HttpServlet {
 		List<Employee> employeesBetween = new ArrayList<Employee>();
 		
 		if (sess != null && user != null) {
-				
-			//Employee emp = empService.getEmployeeByUsername(user.getUsername());
 			
 			String employeeJSON = request.getReader().readLine();
-			
-			System.out.println("empJSON is " + employeeJSON);
-			
-			//Employee emp = new GsonBuilder().create().fromJson(employeeJSON, Employee.class);
-			
-			//System.out.println("username should be mike: " + emp.getUsername());
 			
 			Employee ret = empService.getEmployeeByUsername(employeeJSON);
 			
@@ -129,23 +96,11 @@ public class EmployeeServlet extends HttpServlet {
 			
 			employeesBetween.add(0, ret);
 			
-			System.out.println("Employee Between: " + employeesBetween.toString());
-			
-			//Employee ret = empService.getEmployeeByUsername("mike");
-			
-			System.out.println("Employee object: " + ret.toString());
-			
 			String newEmployeeJSON = new GsonBuilder().create().toJson(employeesBetween);
-			
-			//System.out.println(newEmployeeJSON);
 			
 			PrintWriter pw = response.getWriter();
 			
 			pw.write(newEmployeeJSON);
-			
-			System.out.println("Employee written to printWriter");
-			
-			System.out.println("Employee is \n" + newEmployeeJSON);
 			
 		} else {
 			

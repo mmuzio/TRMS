@@ -92,21 +92,15 @@ public class ReimbursementServlet extends HttpServlet {
 			
 			String reimbursementJson = request.getReader().readLine();
 			
-			System.out.println(reimbursementJson);
-			
 			Reimbursement reimbursement = new GsonBuilder().create().fromJson(reimbursementJson, Reimbursement.class);
 			
 			String eventtimestring = reimbursement.getEventtimestring();
-			
-			//System.out.println(eventtimestring);
 			
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 			
 			LocalDate eventdate = LocalDate.parse(eventtimestring, formatter);
 			
 			LocalDateTime eventtime = (LocalDateTime) eventdate.atStartOfDay();
-			
-			//System.out.println(eventtime.toString());
 			
 			reimbursement.setEventtime(eventtime);
 			
@@ -115,14 +109,6 @@ public class ReimbursementServlet extends HttpServlet {
 			try {
 				
 				reService.addReimbursement(reimbursement);
-				
-				//Approval approval = new Approval(reimbursement.getReimbursementId());
-				
-				//System.out.println("Your approval is " + approval.toString());
-				
-				//appService.addNewApproval(approval);
-				
-				//response.getWriter().write("Success");
 				
 				System.out.println("Reimbursement successfully added");
 				
@@ -140,6 +126,48 @@ public class ReimbursementServlet extends HttpServlet {
 				response.getWriter().write("Reimbursement could not be created");
 				
 				System.out.println("Reimbursement could not be created");
+				
+			}
+			
+		} else {
+			
+			response.getWriter().write("user not logged in");
+			
+			response.sendRedirect("pages/reimbursements.html");
+			
+			System.out.println("user not logged in with session");
+			
+		}
+		
+	}
+	
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sess = request.getSession(false);
+		
+		if (sess != null && sess.getAttribute("user") != null) {
+			
+			try {
+				
+				int reimbursementid = Integer.parseInt(request.getParameter("reimbursementid"));
+				
+				reService.removeReimbursementById(reimbursementid);
+				
+				System.out.println("Reimbursement successfully deleted");
+				
+				return;
+				
+				
+			} catch (Exception e) {
+				
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				
+				response.getWriter().write("Reimbursement could not be deleted");
+				
+				System.out.println("Reimbursement could not be deleted");
 				
 			}
 			

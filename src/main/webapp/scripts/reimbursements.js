@@ -168,6 +168,8 @@ function displayReimbursementList(reimbursementList){
             getApprovalInfo(reimbursementID);
 
             $('.savechanges').attr("name", reimbursementID);
+
+            $('.deletereimbursement').attr("name", reimbursementID);
     
             getAttachments(reimbursementID);
             
@@ -233,6 +235,32 @@ function getAttachments(reimbursementID) {
     xhr.send();
 
 };
+
+function deleteReimbursement(reimbursementid) {
+
+    event.preventDefault();
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            console.log("Success");
+
+            $("#forthumb2").html('<div class="col"><i class="fa fa-thumbs-up fa-3x"></i></div>');
+
+            document.getElementById("deletespan").innerHTML = "Reimbursement Deleted";
+
+        }
+
+    }
+
+    xhr.open("DELETE", "/trms/reimbursement?reimbursementid=" + reimbursementid, true);
+
+    xhr.send();
+
+}
 
 function addAttachmentsToModal(attachmentList) {
 
@@ -308,17 +336,7 @@ function addAttachment(reimbursementID) {
 
             console.log("Success");
 
-            //let attachmentadded = document.getElementById("attachmentadded");
-
-            //let thumbsup = document.createElement("i");
-
-            $("#forthumb").html('<div class="col"><i class="fa fa-thumbs-up fa-3x"></i></div>')
-
-            //$('<div class="col"><i class="fa fa-thumbs-up fa-3x"></i></div>').insertAfter("#savediv");
-
-            // thumbsup.setAttribute("class", "fa fa-thumbs-up fa-3x");
-            
-            // attachmentadded.appendChild(thumbsup);
+            $("#forthumb").html('<div class="col"><i class="fa fa-thumbs-up fa-3x"></i></div>');
 
             document.getElementById("attachmentspan").innerHTML = "Attachment Added";
 
@@ -340,9 +358,15 @@ window.onload = function () {
 
         let name = $(this).attr("name");
 
-        // TO-DO add success message
-
         addAttachment($(this).attr("name"));
+
+    });
+
+    $(".deletereimbursement").on("click", function() {
+
+        let name = $(this).attr("name");
+
+        deleteReimbursement($(this).attr("name"));
 
     });
 

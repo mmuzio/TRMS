@@ -18,6 +18,8 @@ public interface ReimbursementDAO {
 	
 	public void rejectReimbursement(int reimbursementid);
 	
+	public void deleteReimbursementById(int reimbursementid);
+	
 	public Reimbursement getReimbursementById(int id);
 
 	public int retrievePendingAmount(String username);

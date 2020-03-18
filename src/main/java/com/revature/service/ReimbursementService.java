@@ -12,6 +12,8 @@ public interface ReimbursementService {
 	
 	public void addReimbursement(Reimbursement re);
 	
+	public void removeReimbursementById(int reimbursementid);
+	
 	public void acceptReimbursement(int reimbursementid);
 	
 	public void rejectReimbursement(int reimbursementid);

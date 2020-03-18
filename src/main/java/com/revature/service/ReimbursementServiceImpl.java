@@ -80,4 +80,10 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 		return reDao.retrieveAwardedAmount(username);
 	}
 
+	@Override
+	public void removeReimbursementById(int reimbursementid) {
+		reDao.deleteReimbursementById(reimbursementid);
+		
+	}
+
 }

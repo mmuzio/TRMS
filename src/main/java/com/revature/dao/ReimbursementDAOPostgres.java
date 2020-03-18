@@ -34,6 +34,8 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 	
 	private static final String INSERT_REIMBURSEMENT = "call insert_reimbursement(?,?,?,?,?,?,?,?,?,?)";
 	
+	private static final String DELETE_REIMBURSEMENT = "delete from " + REIMBURSEMENT_TABLE + " where reimbursementid = ?";
+	
 	private static final String ACCEPT_REIMBURSEMENT = "update " + REIMBURSEMENT_TABLE + " SET approvalstatus = ? WHERE reimbursementid = ?";
 	
 	//private static final String REJECT_REIMBURSEMENT = "update " + REIMBURSEMENT_TABLE + " SET accepted = ? WHERE reimbursemendid = ?";
@@ -349,6 +351,25 @@ public class ReimbursementDAOPostgres implements ReimbursementDAO {
 		}
 		
 		return ret;
+		
+	}
+
+	@Override
+	public void deleteReimbursementById(int reimbursementid) {
+		
+		try {
+			
+			PreparedStatement stmt = conn.prepareStatement(DELETE_REIMBURSEMENT);
+			
+			stmt.setInt(1, reimbursementid);
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
 		
 	}
 	
